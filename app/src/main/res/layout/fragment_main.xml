@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.klauncher.ui.MainActivity">
+    tools:context="com.klauncher.ui.MainActivity"
+    android:background="@drawable/full_hd_map">
 
     <TextView
         android:id="@+id/screen_on_text"
@@ -14,23 +15,10 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true" />
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="190dp"
-        android:layout_centerInParent="true"
-        android:fitsSystemWindows="false">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="centerInside"
-            android:src="@drawable/blue_map" />
-
-        <com.klauncher.ui.main.airly.AirlyMapViewAdapter
-            android:id="@+id/airly_map"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </RelativeLayout>
+    <com.klauncher.ui.main.airly.AirlyMapViewAdapter
+        android:id="@+id/airly_map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="-76px"/>
 
 </RelativeLayout>

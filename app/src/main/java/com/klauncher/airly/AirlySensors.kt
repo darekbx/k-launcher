@@ -6,12 +6,12 @@ class AirlySensors {
 
     companion object {
         val sensors = listOf(
-                MapSensor(732, "Górczewska", 168, 270),
-                MapSensor(1071, "Powstańców Śląskich", 295, 360),
-                MapSensor(2325, "Bema", 585, 400),
-                MapSensor(2321, "Prosta", 730, 360),
-                MapSensor(1031, "Krochmalna", 800, 280),
-                MapSensor(658, "Szpitalna", 930, 320)
+                MapSensor(732, "Górczewska", 231, 523),
+                MapSensor(1071, "Powstańców Śląskich", 346, 604),
+                MapSensor(2325, "Bema", 612, 642),
+                MapSensor(2321, "Prosta", 747, 611),
+                MapSensor(1031, "Krochmalna", 806, 534),
+                MapSensor(658, "Szpitalna", 930, 572)
         )
     }
 }

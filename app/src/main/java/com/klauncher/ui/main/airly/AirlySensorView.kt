@@ -12,8 +12,8 @@ class AirlySensorView(context: Context, attrs: AttributeSet) : View(context, att
 
     companion object {
         const val DOT_SIZE = 7F
-        const val BOX_WIDTH = 120
-        const val BOX_HEIGHT = 40
+        const val BOX_WIDTH = 160
+        const val BOX_HEIGHT = 80
     }
 
     val paint = Paint().apply {
@@ -38,8 +38,8 @@ class AirlySensorView(context: Context, attrs: AttributeSet) : View(context, att
 
                 paint.color = Color.WHITE
                 canvas.drawText("%.1fº".format(mapSensor.sensor?.currentMeasurements?.temperature), 30F, 18F, paint)
-                //canvas.drawText("PM10: ${mapSensor.sensor?.currentMeasurements?.pm10}", 70F, 48F, paint)
-                //canvas.drawText("PM2.5: ${mapSensor.sensor?.currentMeasurements?.pm25}", 70F, 72F, paint)
+                //canvas.drawText("PM10: ${mapSensor.sensor?.currentMeasurements?.pm10}", 30F, 44F, paint)
+                //canvas.drawText("PM2.5: ${mapSensor.sensor?.currentMeasurements?.pm25}", 30F, 72F, paint)
             }
         }
     }

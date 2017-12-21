@@ -40,7 +40,6 @@ class MainFragment: MainContract.View, Fragment() {
             is SensorError -> { }
             else -> {
                 with(airlyAdapter) {
-                    Log.v("------", "add sensor ${mapSensor.name}")
                     add(mapSensor)
                     notifyDataSetChanged()
                     airlyMap.refresh()
