@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="application_size_icon">46dp</dimen>
+    <dimen name="sorting_item_size">46dp</dimen>
+
+    <dimen name="drawer_width">140dp</dimen>
+    <dimen name="drawer_top_margin">340dp</dimen>
+
+</resources>

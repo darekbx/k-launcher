@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable name="application" type="com.klauncher.model.Application" />
+    </data>
+    <ImageView
+        android:layout_width="@dimen/application_size_icon"
+        android:layout_height="@dimen/application_size_icon"
+        android:scaleType="centerInside"
+        android:padding="6dp"
+        android:src="@{application.icon}"
+        />
+</layout>

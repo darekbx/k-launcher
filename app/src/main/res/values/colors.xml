@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="background">#000</color>
+
+    <color name="sort_font_color">#000</color>
+    <color name="sort_active_background">#999</color>
+    <color name="sort_inactive_background">#333</color>
+
+    <color name="menu_background">#4000</color>
+
+</resources>

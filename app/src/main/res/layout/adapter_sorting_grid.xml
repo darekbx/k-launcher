@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable name="item" type="com.klauncher.model.SortItem" />
+    </data>
+    <TextView
+        android:layout_width="@dimen/sorting_item_size"
+        android:layout_height="@dimen/sorting_item_size"
+        android:text="@{item.letter}"
+        android:gravity="center"
+        android:background="@{item.active ? @drawable/bg_sorting_item_active : @drawable/bg_sorting_item_inactive}"
+        android:textColor="@color/sort_font_color"
+        />
+</layout>
