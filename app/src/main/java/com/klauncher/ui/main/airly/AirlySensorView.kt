@@ -27,12 +27,16 @@ class AirlySensorView(context: Context, attrs: AttributeSet) : View(context, att
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        canvas?.drawColor(Color.BLACK)
         if (mapSensor == null) return
         canvas?.let { canvas ->
             mapSensor?.let { mapSensor ->
+
+                val color = AirlyColors.from(mapSensor.sensor?.currentMeasurements?.pollutionLevel ?: 0)
+
+                paint.color = Color.parseColor(color)
                 canvas.drawCircle(DOT_SIZE, DOT_SIZE, DOT_SIZE, paint)
 
+                paint.color = Color.WHITE
                 canvas.drawText("%.1fº".format(mapSensor.sensor?.currentMeasurements?.temperature), 30F, 18F, paint)
                 //canvas.drawText("PM10: ${mapSensor.sensor?.currentMeasurements?.pm10}", 70F, 48F, paint)
                 //canvas.drawText("PM2.5: ${mapSensor.sensor?.currentMeasurements?.pm25}", 70F, 72F, paint)
