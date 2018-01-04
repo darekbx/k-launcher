@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<img src="full_hd_map.png" id="image" onclick="showCoords(event)" />
+<textarea id="demo" style="font-size:10px; width:800px; height:200px;"></textarea>
+
+<script>
+
+var coords = "";
+    
+function showCoords(event) {
+
+    var x = event.clientX;
+    var y = event.clientY;
+    
+    coords += x + ", " + y + ", ";
+    document.getElementById("demo").innerHTML = coords;
+    
+}
+</script>
+
+</body>
+</html>
