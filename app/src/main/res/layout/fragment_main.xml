@@ -13,7 +13,32 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:typeface="monospace"
+        android:textSize="9sp"
+        />
+
+    <TextView
+        android:id="@+id/sunrise_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/screen_on_text"
+        android:typeface="monospace"
+        android:textSize="9sp"
+        />
+
+    <TextView
+        android:id="@+id/sunset_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/sunrise_text"
+        android:typeface="monospace"
+        android:textSize="9sp"
+        />
 
     <com.klauncher.ui.main.airly.AirlyMapViewAdapter
         android:id="@+id/airly_map"

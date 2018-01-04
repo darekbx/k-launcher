@@ -3,7 +3,6 @@ package com.klauncher.ui.main
 import android.app.Fragment
 import android.content.*
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import com.klauncher.R
 import com.klauncher.extensions.bind
 import com.klauncher.external.Preferences
 import com.klauncher.model.MapSensor
-import com.klauncher.model.rest.SensorError
 import com.klauncher.ui.main.airly.AirlyMapViewAdapter
 import com.klauncher.ui.main.airly.AirlyViewAdapter
 import com.klauncher.ui.main.screenon.ScreenTime
@@ -36,15 +34,10 @@ class MainFragment: MainContract.View, Fragment() {
     }
 
     override fun refreshSensor(mapSensor: MapSensor) {
-        when (mapSensor.sensor) {
-            is SensorError -> { }
-            else -> {
-                with(airlyAdapter) {
-                    add(mapSensor)
-                    notifyDataSetChanged()
-                    airlyMap.refresh()
-                }
-            }
+        with(airlyAdapter) {
+            add(mapSensor)
+            notifyDataSetChanged()
+            airlyMap.refresh()
         }
     }
 
@@ -60,6 +53,7 @@ class MainFragment: MainContract.View, Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         updateScreenOn()
+        loadSunriseSunset()
 
         airlyMap.adapter = airlyAdapter
         presenter.loadSensors()
@@ -76,6 +70,13 @@ class MainFragment: MainContract.View, Fragment() {
         screenOnText.text = getString(R.string.screen_on, formatted)
     }
 
+    private fun loadSunriseSunset() {
+        with(SunriseSunset().load()) {
+            sunriseText.text = getString(R.string.sunrise, first)
+            sunsetText.text = getString(R.string.sunset, second)
+        }
+    }
+
     private fun registerScreenBroadcast() {
         context.registerReceiver(screenReceiver, IntentFilter().apply {
             addAction(Intent.ACTION_SCREEN_ON)
@@ -88,5 +89,7 @@ class MainFragment: MainContract.View, Fragment() {
     private val airlyAdapter by lazy { AirlyViewAdapter(context) }
 
     private val screenOnText: TextView by bind(R.id.screen_on_text)
+    private val sunriseText: TextView by bind(R.id.sunrise_text)
+    private val sunsetText: TextView by bind(R.id.sunset_text)
     private val airlyMap: AirlyMapViewAdapter by bind(R.id.airly_map)
 }

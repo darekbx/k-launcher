@@ -5,13 +5,10 @@ import android.os.Bundle
 import android.support.v4.widget.DrawerLayout
 import android.view.View
 import com.klauncher.R
-import com.klauncher.airly.AirlyController
 import com.klauncher.extensions.bind
-import com.klauncher.extensions.threadToAndroid
 import com.klauncher.ui.applications.ApplicationsContract
 import com.klauncher.ui.applications.ApplicationsFragment
 import com.klauncher.ui.main.MainFragment
-import org.koin.android.ext.android.inject
 
 class MainActivity : Activity, DrawerLayout.DrawerListener {
 

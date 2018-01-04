@@ -23,7 +23,6 @@ class MainPresenter(val view: MainContract.View): MainContract.Presenter {
     fun fetchSensorData(sensorId: Int): Sensor? {
         try {
             val response = airlyController.airlyService.loadSensor(sensorId).execute()
-
             return when (response.isSuccessful) {
                 true -> response.body()
                 false -> SensorError("HTTP error code: {$response.code()}")
