@@ -44,6 +44,17 @@
         android:id="@+id/airly_map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="-76px"/>
+        android:layout_marginTop="-76px"
+        />
+
+    <LinearLayout
+        android:id="@+id/drawable_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="-66px"
+        >
+
+    </LinearLayout>
 
 </RelativeLayout>

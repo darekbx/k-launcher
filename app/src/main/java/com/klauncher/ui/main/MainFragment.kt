@@ -1,11 +1,18 @@
 package com.klauncher.ui.main
 
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
+import android.animation.ValueAnimator.INFINITE
+import android.animation.ValueAnimator.RESTART
 import android.app.Fragment
 import android.content.*
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.LinearInterpolator
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.klauncher.R
 import com.klauncher.extensions.bind
@@ -13,6 +20,7 @@ import com.klauncher.external.Preferences
 import com.klauncher.model.MapSensor
 import com.klauncher.ui.main.airly.AirlyMapViewAdapter
 import com.klauncher.ui.main.airly.AirlyViewAdapter
+import com.klauncher.ui.main.airly.RoutePath
 import com.klauncher.ui.main.screenon.ScreenTime
 import java.sql.Date
 import java.text.SimpleDateFormat
@@ -57,6 +65,17 @@ class MainFragment: MainContract.View, Fragment() {
 
         airlyMap.adapter = airlyAdapter
         presenter.loadSensors()
+
+        val routePath = RoutePath().apply {
+        }
+        drawableContainer.background = routePath
+
+        ObjectAnimator.ofFloat(routePath, RoutePath.DOT_PROGRESS, 1f, 0f).apply {
+            duration = 4000L
+            interpolator = LinearInterpolator()
+            repeatCount = INFINITE
+            repeatMode = RESTART
+        }.start()
     }
 
     override fun onDestroyView() {
@@ -92,4 +111,5 @@ class MainFragment: MainContract.View, Fragment() {
     private val sunriseText: TextView by bind(R.id.sunrise_text)
     private val sunsetText: TextView by bind(R.id.sunset_text)
     private val airlyMap: AirlyMapViewAdapter by bind(R.id.airly_map)
+    private val drawableContainer: LinearLayout by bind(R.id.drawable_container)
 }
