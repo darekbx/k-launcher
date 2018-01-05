@@ -7,35 +7,26 @@ import android.util.FloatProperty
 class RoutePath: Drawable() {
 
     companion object {
-        val points = listOf(
-                Point(244, 500),
-                Point(248, 614),
-                Point(355, 599),
-                Point(364, 660),
-                Point(364, 660),
-                Point(364, 660),
-                Point(361, 684),
-                Point(489, 631),
-                Point(568, 613),
-                Point(723, 593),
-                Point(840, 593),
-                Point(858, 612),
-                Point(948, 582)
-        )
+        val points = arrayOf(
+                252, 203, 253, 253, 254, 315, 360, 302, 361, 274, 407, 275, 405, 291, 432, 290,
+                437, 258, 465, 254, 470, 283, 489, 281, 494, 290, 516, 286, 520, 328, 572, 318,
+                590, 315, 604, 315, 623, 311, 730, 301, 750, 294, 769, 288, 820, 270, 844, 263,
+                865, 313, 804, 337, 784, 342, 691, 389, 629, 423, 604, 436, 484, 564, 367, 525,
+                365, 514, 282, 555, 265, 554, 257, 552, 249, 556, 230, 538, 223, 529, 224, 519,
+                225, 511, 236, 490, 243, 470, 248, 445, 250, 427, 250, 403, 256, 382, 251, 381,
+                217, 327, 209, 320, 137, 310, 167, 264, 189, 228, 206, 196, 251, 202
+                )
     }
 
-    override fun setAlpha(alpha: Int) {
-    }
+    override fun setAlpha(alpha: Int) { }
 
     override fun getOpacity() = PixelFormat.TRANSLUCENT
 
-    override fun setColorFilter(colorFilter: ColorFilter?) {
-
-    }
+    override fun setColorFilter(colorFilter: ColorFilter?) { }
 
     val polygon = Polygon()
 
-    var dotProgress = 0f
+    var morphProgress = 0f
         set(value) {
             field = value.coerceIn(0f, 1f)
             callback.invalidateDrawable(this)
@@ -70,7 +61,7 @@ class RoutePath: Drawable() {
 
         //canvas.drawPath(polygon.path, linePaint)
 
-        val phase = polygon.initialPhase + dotProgress * polygon.length * 2
+        val phase = morphProgress * polygon.length * 2
         dotPaint.pathEffect = PathDashPathEffect(pathLine, polygon.length, phase, PathDashPathEffect.Style.MORPH)
         canvas.drawPath(polygon.path, dotPaint)
     }
@@ -85,29 +76,21 @@ class RoutePath: Drawable() {
             pathMeasure.length
         }
 
-        val initialPhase by lazy(LazyThreadSafetyMode.NONE) {
-            0F
-        }
-
         fun createPath() {
             with(path) {
-                kotlin.with(points[0]) {
-                    moveTo(x.toFloat(), y.toFloat())
-                }
-                for (i in 1 until points.size) {
-                    kotlin.with(points[i]) {
-                        lineTo(x.toFloat(), y.toFloat())
-                    }
+                moveTo(points[0].toFloat(), points[1].toFloat() + 300)
+                for (i in 2 until points.size step 2) {
+                    lineTo(points[i].toFloat(), points[i + 1].toFloat() + 300)
                 }
             }
         }
     }
 
-    object DOT_PROGRESS : FloatProperty<RoutePath>("dotProgress") {
-        override fun setValue(drawable: RoutePath, dotProgress: Float) {
-            drawable.dotProgress = dotProgress
+    object MORPH_PROGRESS : FloatProperty<RoutePath>("morphProgress") {
+        override fun setValue(drawable: RoutePath, morphProgress: Float) {
+            drawable.morphProgress = morphProgress
         }
 
-        override fun get(drawable: RoutePath) = drawable.dotProgress
+        override fun get(drawable: RoutePath) = drawable.morphProgress
     }
 }

@@ -66,12 +66,11 @@ class MainFragment: MainContract.View, Fragment() {
         airlyMap.adapter = airlyAdapter
         presenter.loadSensors()
 
-        val routePath = RoutePath().apply {
-        }
+        val routePath = RoutePath()
         drawableContainer.background = routePath
 
-        ObjectAnimator.ofFloat(routePath, RoutePath.DOT_PROGRESS, 1f, 0f).apply {
-            duration = 4000L
+        ObjectAnimator.ofFloat(routePath, RoutePath.MORPH_PROGRESS, 1f, 0f).apply {
+            duration = 20000L
             interpolator = LinearInterpolator()
             repeatCount = INFINITE
             repeatMode = RESTART
