@@ -7,4 +7,6 @@
     <dimen name="drawer_width">140dp</dimen>
     <dimen name="drawer_top_margin">340dp</dimen>
 
+    <dimen name="small_margin">4dp</dimen>
+
 </resources>

@@ -3,7 +3,6 @@ package com.klauncher.airly
 import com.klauncher.model.rest.Sensor
 import com.klauncher.model.rest.SimpleSensor
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query

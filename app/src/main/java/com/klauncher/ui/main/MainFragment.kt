@@ -1,12 +1,10 @@
 package com.klauncher.ui.main
 
 import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
 import android.animation.ValueAnimator.INFINITE
 import android.animation.ValueAnimator.RESTART
 import android.app.Fragment
 import android.content.*
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,10 +16,12 @@ import com.klauncher.R
 import com.klauncher.extensions.bind
 import com.klauncher.external.Preferences
 import com.klauncher.model.MapSensor
+import com.klauncher.model.rest.zm.ActualPollution
 import com.klauncher.ui.main.airly.AirlyMapViewAdapter
 import com.klauncher.ui.main.airly.AirlyViewAdapter
-import com.klauncher.ui.main.airly.RoutePath
+import com.klauncher.ui.main.traffic.TrafficDrawable
 import com.klauncher.ui.main.screenon.ScreenTime
+import com.klauncher.ui.main.zm.PollutionView
 import java.sql.Date
 import java.text.SimpleDateFormat
 
@@ -49,6 +49,12 @@ class MainFragment: MainContract.View, Fragment() {
         }
     }
 
+    override fun displayPollution(actualPollution: ActualPollution) {
+        pollutionPM10.setPollution(actualPollution.pm10, "PM  10:")
+        pollutionPM25.setPollution(actualPollution.pm25, "PM 2.5:")
+        pollutionInfo.text = "${actualPollution.time}\n${actualPollution.pm10.name}"
+    }
+
     override fun notifyError(error: Throwable) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -65,11 +71,12 @@ class MainFragment: MainContract.View, Fragment() {
 
         airlyMap.adapter = airlyAdapter
         presenter.loadSensors()
+        presenter.loadPollution()
 
-        val routePath = RoutePath()
+        val routePath = TrafficDrawable()
         drawableContainer.background = routePath
 
-        ObjectAnimator.ofFloat(routePath, RoutePath.MORPH_PROGRESS, 1f, 0f).apply {
+        ObjectAnimator.ofFloat(routePath, TrafficDrawable.MORPH_PROGRESS, 1f, 0f).apply {
             duration = 20000L
             interpolator = LinearInterpolator()
             repeatCount = INFINITE
@@ -109,6 +116,9 @@ class MainFragment: MainContract.View, Fragment() {
     private val screenOnText: TextView by bind(R.id.screen_on_text)
     private val sunriseText: TextView by bind(R.id.sunrise_text)
     private val sunsetText: TextView by bind(R.id.sunset_text)
+    private val pollutionInfo: TextView by bind(R.id.pollution_location_info)
+    private val pollutionPM10: PollutionView by bind(R.id.pollution_pm10)
+    private val pollutionPM25: PollutionView by bind(R.id.pollution_pm25)
     private val airlyMap: AirlyMapViewAdapter by bind(R.id.airly_map)
     private val drawableContainer: LinearLayout by bind(R.id.drawable_container)
 }

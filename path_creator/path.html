@@ -11,10 +11,11 @@ var coords = "";
     
 function showCoords(event) {
 
-    var x = event.clientX;
+    var scrollTop  = window.pageYOffset || document.documentElement.scrollTop;
+    var x = event.clientX + scrollTop;
     var y = event.clientY;
     
-    coords += x + ", " + y + ", ";
+    coords += x + "F, " + y + "F, ";
     document.getElementById("demo").innerHTML = coords;
     
 }
