@@ -2,6 +2,7 @@ package com.klauncher.ui.main
 
 import com.klauncher.airly.AirlyController
 import com.klauncher.airly.AirlySensors
+import com.klauncher.dotpad.DotsCount
 import com.klauncher.extensions.threadToAndroid
 import com.klauncher.model.rest.Sensor
 import com.klauncher.model.rest.SensorError
@@ -44,7 +45,16 @@ class MainPresenter(val view: MainContract.View): MainContract.Presenter {
                 )
     }
 
+    override fun loadDotCount() {
+        val count = dotsCount.countActiveDots()
+        view?.let { view -> view.displayDotCount(count) }
+    }
+
     private val airlyController by lazy {
         AirlyController().apply { setup() }
+    }
+
+    private val dotsCount by lazy {
+        DotsCount()
     }
 }

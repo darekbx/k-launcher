@@ -56,6 +56,10 @@ class MainFragment: MainContract.View, Fragment() {
         pollutionInfo.text = "${actualPollution.time}\n${actualPollution.pm10.name}"
     }
 
+    override fun displayDotCount(count: Int) {
+        dotCount.text = "$count"
+    }
+
     override fun notifyError(error: Throwable) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -73,6 +77,7 @@ class MainFragment: MainContract.View, Fragment() {
         airlyMap.adapter = airlyAdapter
         presenter.loadSensors()
         presenter.loadPollution()
+        presenter.loadDotCount()
 
         val routePath = TrafficDrawable()
         drawableContainer.background = routePath
@@ -114,6 +119,7 @@ class MainFragment: MainContract.View, Fragment() {
     private val screenTime: ScreenTime by lazy { ScreenTime(preferences) }
     private val airlyAdapter by lazy { AirlyViewAdapter(context) }
 
+    private val dotCount: TextView by bind(R.id.dot_count)
     private val screenOnText: TextView by bind(R.id.screen_on_text)
     private val sunriseText: TextView by bind(R.id.sunrise_text)
     private val sunsetText: TextView by bind(R.id.sunset_text)
