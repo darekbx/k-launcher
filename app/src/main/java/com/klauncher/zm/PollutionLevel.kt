@@ -12,7 +12,7 @@ class PollutionLevel {
 
     companion object {
         val ZM_API_ADDRESS = "http://www.zm.org.pl/powietrze/json/"
-        val PROBES_ORDER = arrayOf("Warszawa-Komunikacyjna", "Warszawa-Marszałkowska", "Warszawa-Ursynów", "Warszawa-Targówek")
+        val PROBES_ORDER = arrayOf("Warszawa-Marszałkowska", "Warszawa-Komunikacyjna", "Warszawa-Ursynów", "Warszawa-Targówek")
     }
 
     fun loadPollution(): Single<ActualPollution> {

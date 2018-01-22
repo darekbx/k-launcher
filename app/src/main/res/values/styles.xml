@@ -6,9 +6,19 @@
     </style>
 
     <style name="TinyText">
-        <item name="android:textSize">9sp</item>
+        <item name="android:textSize">8sp</item>
         <item name="android:typeface">monospace</item>
     </style>
 
+    <style name="RoundButton">
+        <item name="android:layout_width">@dimen/round_button_size</item>
+        <item name="android:layout_height">@dimen/round_button_size</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:layout_marginRight">@dimen/round_button_margin</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:gravity">center</item>
+    </style>
 
 </resources>

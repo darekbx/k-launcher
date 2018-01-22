@@ -9,6 +9,9 @@ import com.klauncher.extensions.bind
 import com.klauncher.ui.applications.ApplicationsContract
 import com.klauncher.ui.applications.ApplicationsFragment
 import com.klauncher.ui.main.MainFragment
+import android.content.Intent
+import android.net.Uri
+
 
 class MainActivity : Activity, DrawerLayout.DrawerListener {
 
@@ -27,6 +30,24 @@ class MainActivity : Activity, DrawerLayout.DrawerListener {
     override fun onDestroy() {
         super.onDestroy()
         drawer.removeDrawerListener(this)
+    }
+
+    fun openDialer(view: View) {
+        startActivity(getPackageManager().getLaunchIntentForPackage(
+                getString(R.string.dialer_package_name)));
+    }
+
+    fun openMessages(view: View) {
+        val intent = Intent(Intent.ACTION_SENDTO,
+                Uri.parse("smsto:" + getString(R.string.moni_number)))
+        startActivity(intent)
+    }
+
+    fun openDots(view: View) {
+        packageManager.getLaunchIntentForPackage(getString(R.string.dot_pad_packagename))?.let { intent ->
+            intent.addCategory(Intent.CATEGORY_LAUNCHER)
+            startActivity(intent)
+        }
     }
 
     private fun addApplicationsGrid() {

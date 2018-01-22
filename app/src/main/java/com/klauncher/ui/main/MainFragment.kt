@@ -50,6 +50,7 @@ class MainFragment: MainContract.View, Fragment() {
     }
 
     override fun displayPollution(actualPollution: ActualPollution) {
+        if (!isAdded) return
         pollutionPM10.setPollution(actualPollution.pm10, "PM  10:")
         pollutionPM25.setPollution(actualPollution.pm25, "PM 2.5:")
         pollutionInfo.text = "${actualPollution.time}\n${actualPollution.pm10.name}"

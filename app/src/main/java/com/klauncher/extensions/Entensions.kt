@@ -43,3 +43,5 @@ fun <T : View> View.bind(@IdRes idRes: Int): Lazy<T> {
 }
 
 private fun <T> unsafeLazy(initializer: () -> T) = lazy(LazyThreadSafetyMode.NONE, initializer)
+
+fun Int.format(digits: Int) = java.lang.String.format("%0${digits}d", this)

@@ -86,4 +86,33 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/content_bottom_buttons"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:paddingBottom="@dimen/round_button_margin"
+        android:orientation="horizontal"
+        android:gravity="right">
+        <ImageButton
+            android:id="@+id/button_phone"
+            android:src="@drawable/btn_phone"
+            style="@style/RoundButton"
+            android:onClick="openDialer"
+            />
+        <TextView
+            android:id="@+id/dot_count"
+            android:text="9"
+            style="@style/RoundButton"
+            android:background="@drawable/btn_dot"
+            android:onClick="openDots"
+            />
+        <ImageButton
+            android:id="@+id/button_sms"
+            android:src="@drawable/btn_sms"
+            style="@style/RoundButton"
+            android:onClick="openMessages"
+            />
+    </LinearLayout>
+
 </RelativeLayout>

@@ -9,4 +9,7 @@
 
     <dimen name="small_margin">4dp</dimen>
 
+    <dimen name="round_button_size">54dp</dimen>
+    <dimen name="round_button_margin">16dp</dimen>
+
 </resources>

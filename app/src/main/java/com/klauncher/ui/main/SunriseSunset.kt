@@ -1,5 +1,6 @@
 package com.klauncher.ui.main
 
+import com.klauncher.extensions.format
 import net.time4j.PlainDate
 import net.time4j.calendar.astro.SolarTime
 
@@ -16,7 +17,7 @@ class SunriseSunset {
             val sunset = PlainDate.nowInSystemTime().get(sunset()).toLocalTimestamp()
             return Pair(
                     "${sunrise.hour}:${sunrise.minute}",
-                    " ${sunset.hour}:${sunset.minute}"
+                    " ${sunset.hour}:${sunset.minute.format(2)}"
             )
         }
     }
