@@ -42,6 +42,7 @@ class MainFragment: MainContract.View, Fragment() {
     }
 
     override fun refreshSensor(mapSensor: MapSensor) {
+        if (!isAdded) return
         with(airlyAdapter) {
             add(mapSensor)
             notifyDataSetChanged()
@@ -57,6 +58,7 @@ class MainFragment: MainContract.View, Fragment() {
     }
 
     override fun displayDotCount(count: Int) {
+        if (!isAdded) return
         dotCount.text = "$count"
     }
 

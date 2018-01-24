@@ -17,9 +17,11 @@ class MainPresenter(val view: MainContract.View): MainContract.Presenter {
                 .flatMapIterable { mapSensors -> mapSensors }
                 .doOnNext { it.sensor = fetchSensorData(it.airlyId) }
                 .threadToAndroid()
+                .filter { _ -> view != null }
                 .subscribe(
                         { view.refreshSensor(it) },
-                        { view.notifyError(it) })
+                        { view.notifyError(it) }
+                )
     }
 
     fun fetchSensorData(sensorId: Int): Sensor? {
@@ -39,6 +41,7 @@ class MainPresenter(val view: MainContract.View): MainContract.Presenter {
         pollutionLevel
                 .loadPollution()
                 .threadToAndroid()
+                .filter { _ -> view != null }
                 .subscribe(
                         { view.displayPollution(it) },
                         { view.notifyError(it) }

@@ -4,7 +4,7 @@ import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.util.FloatProperty
 
-class TrafficDrawable : Drawable() {
+open class TrafficDrawable : Drawable() {
 
     companion object {
         val DRAW_DEBUG_LINE = false
@@ -41,8 +41,8 @@ class TrafficDrawable : Drawable() {
 
     private val pathLine = Path().apply {
         moveTo(0f, -2f)
-        lineTo(40f, -2f)
-        lineTo(40f, 2f)
+        lineTo(30f, -2f)
+        lineTo(30f, 2f)
         lineTo(0f, 2f)
         close()
     }

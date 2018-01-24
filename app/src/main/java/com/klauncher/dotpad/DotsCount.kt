@@ -7,11 +7,12 @@ class DotsCount {
 
     companion object {
         val DOTS_DB_FILE = "dotpad.sqlite"
+        val DOTS_TABLE = "dots"
     }
 
     fun countActiveDots(): Int {
         openDataBase().use { db ->
-            val cursor = db.query("dots", null,
+            val cursor = db.query(DOTS_TABLE, null,
                     "isArchival = 0 AND is_sticked = 0", null,
                     null, null, null, null)
             cursor?.use { cursor ->
