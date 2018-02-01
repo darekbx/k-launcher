@@ -70,9 +70,50 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/small_margin"
+        android:layout_marginBottom="@dimen/small_margin"
         android:gravity="right"
         android:layout_below="@id/pollution_pm25"
         style="@style/TinyText"
+        />
+
+    <TextView
+        android:id="@+id/if_temperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/small_margin"
+        android:gravity="right"
+        android:layout_below="@id/pollution_location_info"
+        style="@style/TinyText"
+        />
+    <TextView
+        android:id="@+id/if_wind_chill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/small_margin"
+        android:gravity="right"
+        android:layout_below="@id/if_temperature"
+        style="@style/TinyText"
+        />
+
+    <ImageView
+        android:id="@+id/if_temperature_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/small_margin"
+        android:gravity="right"
+        android:layout_below="@id/if_wind_chill"
+        />
+    <ImageView
+        android:id="@+id/if_wind_chill_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/small_margin"
+        android:gravity="right"
+        android:layout_below="@id/if_temperature_image"
         />
 
     <com.klauncher.ui.main.airly.AirlyMapViewAdapter

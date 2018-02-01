@@ -1,4 +1,4 @@
-package com.klauncher.airly
+package com.klauncher.api.airly
 
 import com.klauncher.model.rest.Sensor
 import com.klauncher.model.rest.SimpleSensor

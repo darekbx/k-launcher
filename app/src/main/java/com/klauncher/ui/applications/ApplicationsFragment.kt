@@ -66,6 +66,7 @@ class ApplicationsFragment : Fragment(), ApplicationsContract.View {
     }
 
     override fun setItems(items: List<Application>) {
+        applicationsList.clear()
         applicationsList.addAll(items)
         refreshAdapter(applicationsList)
     }

@@ -1,6 +1,6 @@
 package com.klauncher.di
 
-import com.klauncher.airly.AirlyController
+import com.klauncher.api.airly.AirlyController
 import org.koin.android.module.AndroidModule
 
 class AirlyModule: AndroidModule() {

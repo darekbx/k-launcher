@@ -1,4 +1,4 @@
-package com.klauncher.zm
+package com.klauncher.api.zm
 
 import com.google.gson.Gson
 import com.klauncher.model.rest.zm.*

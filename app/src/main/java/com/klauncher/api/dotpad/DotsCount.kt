@@ -1,4 +1,4 @@
-package com.klauncher.dotpad
+package com.klauncher.api.dotpad
 
 import android.database.sqlite.SQLiteDatabase
 import android.os.Environment

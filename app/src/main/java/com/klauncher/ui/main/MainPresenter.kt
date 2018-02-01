@@ -1,12 +1,14 @@
 package com.klauncher.ui.main
 
-import com.klauncher.airly.AirlyController
-import com.klauncher.airly.AirlySensors
-import com.klauncher.dotpad.DotsCount
+import com.klauncher.api.ifmeteo.IfWeather
+import com.klauncher.api.airly.AirlyController
+import com.klauncher.api.airly.AirlySensors
+import com.klauncher.api.dotpad.DotsCount
 import com.klauncher.extensions.threadToAndroid
 import com.klauncher.model.rest.Sensor
 import com.klauncher.model.rest.SensorError
-import com.klauncher.zm.PollutionLevel
+import com.klauncher.api.zm.PollutionLevel
+import com.klauncher.extensions.notNull
 import io.reactivex.Observable
 
 class MainPresenter(val view: MainContract.View): MainContract.Presenter {
@@ -17,9 +19,9 @@ class MainPresenter(val view: MainContract.View): MainContract.Presenter {
                 .flatMapIterable { mapSensors -> mapSensors }
                 .doOnNext { it.sensor = fetchSensorData(it.airlyId) }
                 .threadToAndroid()
-                .filter { _ -> view != null }
+                .notNull(view)
                 .subscribe(
-                        { view.refreshSensor(it) },
+                        { view.displaySensors(it) },
                         { view.notifyError(it) }
                 )
     }
@@ -37,11 +39,10 @@ class MainPresenter(val view: MainContract.View): MainContract.Presenter {
     }
 
     override fun loadPollution() {
-        val pollutionLevel = PollutionLevel()
-        pollutionLevel
+                PollutionLevel()
                 .loadPollution()
                 .threadToAndroid()
-                .filter { _ -> view != null }
+                .notNull(view)
                 .subscribe(
                         { view.displayPollution(it) },
                         { view.notifyError(it) }
@@ -51,6 +52,17 @@ class MainPresenter(val view: MainContract.View): MainContract.Presenter {
     override fun loadDotCount() {
         val count = dotsCount.countActiveDots()
         view?.let { view -> view.displayDotCount(count) }
+    }
+
+    override fun loadIfWeather() {
+        IfWeather()
+                .currentConditions()
+                .threadToAndroid()
+                .notNull(view)
+                .subscribe(
+                        { view.displayIfWeather(it) },
+                        { view.notifyError(it) }
+                )
     }
 
     private val airlyController by lazy {

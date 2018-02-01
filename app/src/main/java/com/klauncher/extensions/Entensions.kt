@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Fragment
 import android.support.annotation.IdRes
 import android.view.View
+import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -13,10 +14,23 @@ fun <T> Single<T>.threadToAndroid(): Single<T> {
     return this
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-}fun <T> Observable<T>.threadToAndroid(): Observable<T> {
+}
+
+fun <T> Single<T>.notNull(view: Any): Maybe<T> {
+    return this
+            .filter { _ -> view != null }
+}
+
+
+fun <T> Observable<T>.threadToAndroid(): Observable<T> {
     return this
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+}
+
+fun <T> Observable<T>.notNull(view: Any): Observable<T> {
+    return this
+            .filter { _ -> view != null }
 }
 
 fun View.show() {

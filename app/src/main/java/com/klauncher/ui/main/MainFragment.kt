@@ -5,17 +5,22 @@ import android.animation.ValueAnimator.INFINITE
 import android.animation.ValueAnimator.RESTART
 import android.app.Fragment
 import android.content.*
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.klauncher.R
 import com.klauncher.extensions.bind
+import com.klauncher.extensions.hide
+import com.klauncher.extensions.show
 import com.klauncher.external.Preferences
 import com.klauncher.model.MapSensor
+import com.klauncher.model.rest.ifmeteo.WeatherConditions
 import com.klauncher.model.rest.zm.ActualPollution
 import com.klauncher.ui.main.airly.AirlyMapViewAdapter
 import com.klauncher.ui.main.airly.AirlyViewAdapter
@@ -41,7 +46,7 @@ class MainFragment: MainContract.View, Fragment() {
         }
     }
 
-    override fun refreshSensor(mapSensor: MapSensor) {
+    override fun displaySensors(mapSensor: MapSensor) {
         if (!isAdded) return
         with(airlyAdapter) {
             add(mapSensor)
@@ -62,6 +67,37 @@ class MainFragment: MainContract.View, Fragment() {
         dotCount.text = "$count"
     }
 
+    override fun displayIfWeather(weatherConditions: WeatherConditions) {
+        if (!isAdded) return
+        showAllIfMeteoViews()
+        if (weatherConditions.temperature is Double) {
+            ifTemperature.text = "${weatherConditions.temperature}"
+            ifWindChill.text = "${weatherConditions.windChill}"
+            hideIfMeteoImageViews()
+        } else {
+            ifTemperatureImage.setImageBitmap(weatherConditions.temperature as Bitmap)
+            ifWindChillImage.setImageBitmap(weatherConditions.windChill as Bitmap)
+            hideIfMeteoDoubleViews()
+        }
+    }
+
+    private fun hideIfMeteoDoubleViews() {
+        ifTemperature.hide()
+        ifWindChill.hide()
+    }
+
+    private fun hideIfMeteoImageViews() {
+        ifTemperatureImage.hide()
+        ifWindChillImage.hide()
+    }
+
+    private fun showAllIfMeteoViews() {
+        ifTemperatureImage.show()
+        ifWindChillImage.show()
+        ifTemperature.show()
+        ifWindChill.show()
+    }
+
     override fun notifyError(error: Throwable) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -80,6 +116,7 @@ class MainFragment: MainContract.View, Fragment() {
         presenter.loadSensors()
         presenter.loadPollution()
         presenter.loadDotCount()
+        presenter.loadIfWeather()
 
         val routePath = TrafficDrawable()
         drawableContainer.background = routePath
@@ -125,6 +162,10 @@ class MainFragment: MainContract.View, Fragment() {
     private val screenOnText: TextView by bind(R.id.screen_on_text)
     private val sunriseText: TextView by bind(R.id.sunrise_text)
     private val sunsetText: TextView by bind(R.id.sunset_text)
+    private val ifTemperature: TextView by bind(R.id.if_temperature)
+    private val ifWindChill: TextView by bind(R.id.if_wind_chill)
+    private val ifTemperatureImage: ImageView by bind(R.id.if_temperature_image)
+    private val ifWindChillImage: ImageView by bind(R.id.if_wind_chill_image)
     private val pollutionInfo: TextView by bind(R.id.pollution_location_info)
     private val pollutionPM10: PollutionView by bind(R.id.pollution_pm10)
     private val pollutionPM25: PollutionView by bind(R.id.pollution_pm25)

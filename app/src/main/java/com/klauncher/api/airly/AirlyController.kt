@@ -1,4 +1,4 @@
-package com.klauncher.airly
+package com.klauncher.api.airly
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
