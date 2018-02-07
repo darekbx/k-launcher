@@ -11,6 +11,7 @@ import com.klauncher.ui.applications.ApplicationsFragment
 import com.klauncher.ui.main.MainFragment
 import android.content.Intent
 import android.net.Uri
+import android.view.Gravity
 
 
 class MainActivity : Activity, DrawerLayout.DrawerListener {
@@ -32,9 +33,15 @@ class MainActivity : Activity, DrawerLayout.DrawerListener {
         drawer.removeDrawerListener(this)
     }
 
+    override fun onBackPressed() {
+        if (drawer.isDrawerOpen(Gravity.RIGHT)) {
+            drawer.closeDrawers()
+        }
+    }
+
     fun openDialer(view: View) {
         startActivity(getPackageManager().getLaunchIntentForPackage(
-                getString(R.string.dialer_package_name)));
+                getString(R.string.dialer_package_name)))
     }
 
     fun openMessages(view: View) {

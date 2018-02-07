@@ -8,7 +8,7 @@ import io.reactivex.rxkotlin.toSingle
 import okhttp3.OkHttpClient
 import okhttp3.Request
 
-class PollutionLevel {
+open class PollutionLevel {
 
     companion object {
         val ZM_API_ADDRESS = "http://www.zm.org.pl/powietrze/json/"
@@ -16,9 +16,8 @@ class PollutionLevel {
     }
 
     fun loadPollution(): Single<ActualPollution> {
-        val request = Request.Builder().url(ZM_API_ADDRESS).build()
-        return OkHttpClient()
-                .newCall(request)
+        val request = createRequest()
+        return createCall(request)
                 .toSingle()
                 .map { call -> call.execute() }
                 .map { response -> response.body()?.string() ?: "" }
@@ -36,6 +35,10 @@ class PollutionLevel {
                 .filter { it.isValid() }
                 .blockingFirst()
     }
+
+    fun createRequest() = Request.Builder().url(ZM_API_ADDRESS).build()
+
+    open fun createCall(request: Request?) = OkHttpClient().newCall(request)
 
     private fun removeFunctionWrapper(input: String) = input.substring(15, input.length - 1)
 

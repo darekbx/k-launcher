@@ -4,8 +4,6 @@ import com.klauncher.model.rest.ifmeteo.WeatherConditions
 
 class IfParser {
 
-
-
     companion object {
         val sectionBegin = "font-size:14pt"
         val sectionEnd = "font-size:12pt"

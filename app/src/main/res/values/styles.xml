@@ -6,8 +6,9 @@
     </style>
 
     <style name="TinyText">
-        <item name="android:textSize">8sp</item>
+        <item name="android:textSize">9sp</item>
         <item name="android:typeface">monospace</item>
+        <item name="android:textColor">#fff</item>
     </style>
 
     <style name="RoundButton">

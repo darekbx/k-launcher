@@ -8,7 +8,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 
-class IfWeather {
+open class IfWeather {
 
     companion object {
         val IF_ADDRESS_BASE = "http://www.if.pw.edu.pl/~meteo/"
@@ -40,15 +40,15 @@ class IfWeather {
                     .toList()
                     .map { list -> WeatherConditions(list[0], list[1], list[2], list[3]) }
 
-    private fun createRequest() = createRequest(IF_ADDRESS)
+    fun createRequest() = createRequest(IF_ADDRESS)
 
     private fun createRequest(address: String) = Request.Builder().url(address).build()
 
-    private fun makeHttpCall(request: Request?) = OkHttpClient().newCall(request)
+    open fun makeHttpCall(request: Request?) = OkHttpClient().newCall(request)
 
-    private fun responseToString(response: Response) = response.body()?.string() ?: ""
+    fun responseToString(response: Response) = response.body()?.string() ?: ""
 
-    private fun responseToBitmap(response: Response) = BitmapFactory.decodeStream(response.body()?.byteStream())
+    fun responseToBitmap(response: Response) = BitmapFactory.decodeStream(response.body()?.byteStream())
 
     private val parser by lazy { IfParser() }
 }

@@ -1,0 +1,104 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="refresh" content="150" />
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-2" />
+<meta name="description" content="Strona przedstawiajšca dane meteo w Warszawie. The page presents meteo data in Warsaw, Poland." />
+<meta name="keywords" content="meteo, Warszawa, Warsaw, bajdecki" /> 
+<meta name="author" content="Waldemar Bajdecki" />
+<meta name="copyright" content="Waldemar Bajdecki, Wydział Fizyki PW" />
+<title>Stacja meteorologiczna na Wydziale Fizyki Politechniki Warszawskiej</title>
+</head>
+<body style="background: #ffffdd; margin-top: 0">
+<div style="text-align: center; font-size:12pt; font-family: Arial">
+<h1>Stacja Meteo Wydziału Fizyki Politechniki Warszawskiej</h1>
+<table style="margin: 0 auto">
+<tr>
+<td rowspan="3"><a href="http://www.fizyka.pw.edu.pl"><img src="logo_wfpw.png" height="100" alt="logo_wfpw" style="border:0" /></a></td>
+<td>
+<span style="text-align: center; font-size:10pt; color: maroon; font-weight: 600; word-spacing: 0; line-height: 100%; margin-top: 0; margin-bottom: 0">
+położenie stacji:&nbsp;
+<br />
+<br />N 52&#0176; 13&#8217; 17,8&#8221;
+<br />E 21&#0176; 00&#8217; 26,1&#8221;
+<br />
+<br />135m n.p.m.
+<br />
+<br />
+</span>
+<span style="text-align: center; font-size:10pt; margin-top:5px"><i>dane są uaktualniane co 5 min</i></span>
+</td><td style="text-align: center; font-size:10pt; color: maroon; margin-top: 0; margin-bottom: 0; width:27%">
+<b>zamontowała</b>
+<br /><b><a href="http://www.stacjameteo.com/">ECOCLIMA</a></b>
+<br /><b>Davis Pro2&nbsp;&nbsp; 1.02.2007</b>
+</td>
+</tr>
+</table>
+<div style="color:red;font-size:18pt;text-align:center"></div>
+<table cellspacing="0" cellpadding="0" border="1" style="margin: 0 auto">
+<tr align="center">
+<td colspan="1" style="background-image:url('slonce-wschod.jpg');color:#ffee33"><b>Wschód słońca 7:16</b></td>
+<td colspan="1" style="background-image:url('slonce-zachod.jpg');color:#bb0055"><b>Zachód słońca 16:22</b></td>
+</tr><tr align="center">
+<td colspan="2">   Ostatni pomiar (CET=UTC+1:00): <span style="font-size:14pt"><b>2018-02-01 14:50</b></span></td>
+</tr><tr align="center">
+<td style="background:#ff6666"><b>Temperatura</b></td>
+<td style="background:#ff7777; font-size:24pt">&nbsp;<img src="warszawapw/tv.jpg" alt="tzewn" style="border:0;padding-left:5px;float:left" /> °C&nbsp;</td>
+</tr><tr align="center">
+<td style="background:#0099ff"><b>Temperatura <br />odczuwalna</b></td>
+<td style="background:#00bbff; font-size:24pt">&nbsp;<img src="warszawapw/tov.jpg" alt="todcz" style="border:0;padding-left:5px;float:left" /> °C&nbsp;</td>
+</tr><tr align="center">
+<td style="background:#dd00ff"><b>Ciśnienie <br />atmosferyczne</b></td>
+<td style="background:#ff66ff; font-size:24pt">&nbsp;<img src="warszawapw/pv.jpg" alt="cisnienie" style="border:0;padding-left:5px;float:left" /> hPa&nbsp;</td>
+</tr><tr align="center">
+<td style="background:#44dd44">&nbsp;<b>Wilgotność</b>&nbsp;</td>
+<td style="background:#2ff924; font-size:24pt">&nbsp;<img src="warszawapw/wv.jpg" alt="wilg" style="border:0;padding-left:5px;float:left" /> %&nbsp;</td>
+</tr><tr align="center">
+<td style="background:#fae6c2"><b>Prędkość <br />i kierunek wiatru</b></td>
+<td style="background:#fafad2; font-size:24pt">&nbsp;<img src="warszawapw/prv.jpg" alt="wiatr" style="border:0;padding-left:5px;float:left" /> m/s&nbsp;
+<span style="font-size:12pt"><br />&nbsp;<b>w porywach do 1,8 m/s</b>&nbsp;</span></td>
+</tr><tr align="center">
+<td style="background:#ddcc00"><b>Nasłonecznienie</b></td>
+<td style="background:#ffee33; font-size:24pt">&nbsp;<img src="warszawapw/solarv.jpg" alt="solar" style="border:0;padding-left:5px;float:left" /> W/m<sup>2</sup> &nbsp;</td>
+</tr><tr align="center">
+<td style="background:#00dbdb"><b>Opad deszczu</b></td>
+<td style="background:#20fcfc; font-size:24pt">&nbsp;<img src="warszawapw/ophv.jpg" alt="rain" style="border:0;padding-left:5px;float:left" /> l/m<sup>2</sup> &nbsp;<span style="font-size:12pt"><br />&nbsp;<b>przez godzinę</b>&nbsp;</span></td>
+	</tr>
+</table>
+<br />
+<!-- stat.4u.pl NiE KaSoWaC -->
+<a target="_top" href="http://stat.4u.pl/?meteowfpw" title="statystyki stron WWW"><img alt="stat4u" src="http://adstat.4u.pl/s4u.gif" border="0" /></a>
+<script language="JavaScript" type="text/javascript">
+<!--
+function s4upl() { return "&amp;r=er";}
+//-->
+</script>
+<script language="JavaScript" type="text/javascript" src="http://adstat.4u.pl/s.js?meteowfpw"></script>
+<script language="JavaScript" type="text/javascript">
+<!--
+s4uext=s4upl();
+document.write('<img alt="stat4u" src="http://stat.4u.pl/cgi-bin/s.cgi?i=meteowfpw'+s4uext+'" width="1" height="1">')
+//-->
+</script>
+<noscript><img alt="stat4u" src="http://stat.4u.pl/cgi-bin/s.cgi?i=meteowfpw&amp;r=ns" width="1" height="1" /></noscript>
+<!-- stat.4u.pl KoNiEc -->
+
+<!-- stat analitycs -->
+<script language="JavaScript" type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-80736021-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- stat analitycs KONIEC -->
+
+<br /><span style="font-size:10pt; color:blue">&#0169; 2007-2018 WF PW: <a href="http://www.if.pw.edu.pl/~bajdecki">dr inż. Waldemar Bajdecki</a></span>
+</div>
+
+</body>
+</html>
+
+

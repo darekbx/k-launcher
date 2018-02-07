@@ -107,16 +107,18 @@ class MainFragment: MainContract.View, Fragment() {
         return LayoutInflater.from(context).inflate(R.layout.fragment_main, container, false)
     }
 
+    override fun onResume() {
+        super.onResume()
+        loadData()
+    }
+
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         updateScreenOn()
         loadSunriseSunset()
 
         airlyMap.adapter = airlyAdapter
-        presenter.loadSensors()
-        presenter.loadPollution()
-        presenter.loadDotCount()
-        presenter.loadIfWeather()
+        loadData()
 
         val routePath = TrafficDrawable()
         drawableContainer.background = routePath
@@ -127,6 +129,13 @@ class MainFragment: MainContract.View, Fragment() {
             repeatCount = INFINITE
             repeatMode = RESTART
         }.start()
+    }
+
+    private fun loadData() {
+        presenter.loadSensors()
+        presenter.loadPollution()
+        presenter.loadDotCount()
+        presenter.loadIfWeather()
     }
 
     override fun onDestroyView() {

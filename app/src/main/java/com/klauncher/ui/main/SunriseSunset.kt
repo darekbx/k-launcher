@@ -16,7 +16,7 @@ class SunriseSunset {
             val sunrise = PlainDate.nowInSystemTime().get(sunrise()).toLocalTimestamp()
             val sunset = PlainDate.nowInSystemTime().get(sunset()).toLocalTimestamp()
             return Pair(
-                    "${sunrise.hour}:${sunrise.minute}",
+                    "${sunrise.hour}:${sunrise.minute.format(2)}",
                     " ${sunset.hour}:${sunset.minute.format(2)}"
             )
         }
