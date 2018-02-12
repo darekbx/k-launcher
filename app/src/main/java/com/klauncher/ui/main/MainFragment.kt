@@ -99,7 +99,7 @@ class MainFragment: MainContract.View, Fragment() {
     }
 
     override fun notifyError(error: Throwable) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        error.printStackTrace()
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -132,6 +132,7 @@ class MainFragment: MainContract.View, Fragment() {
     }
 
     private fun loadData() {
+        airlyAdapter.clear()
         presenter.loadSensors()
         presenter.loadPollution()
         presenter.loadDotCount()

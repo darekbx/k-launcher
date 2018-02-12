@@ -34,12 +34,12 @@ data class Pollution(
             when (trendObject) {
                 Trend.UP -> "\u2191"
                 Trend.DOWN -> "\u2193"
-                else -> "-"
+                Trend.NOCHANGE -> "-"
             }
 
     enum class Trend {
         UP,
-        STABLE,
+        NOCHANGE,
         DOWN
     }
 

@@ -77,6 +77,7 @@ class ApplicationsFragment : Fragment(), ApplicationsContract.View {
             addAll(items)
             notifyDataSetChanged()
         }
+        grid.post({ grid.setSelection(0) })
     }
 
     val applicationsAdapter: ApplicationsAdapter by lazy {
