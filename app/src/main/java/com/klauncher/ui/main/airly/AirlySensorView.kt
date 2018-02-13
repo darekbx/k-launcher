@@ -10,7 +10,7 @@ import com.klauncher.model.rest.SensorError
 class AirlySensorView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
     companion object {
-        const val DOT_SIZE = 20F
+        const val DOT_SIZE = 22F
         const val BOX_WIDTH = 200
         const val BOX_HEIGHT = 98
     }
@@ -19,7 +19,7 @@ class AirlySensorView(context: Context, attrs: AttributeSet) : View(context, att
         isAntiAlias = true
         color = Color.WHITE
         style = Paint.Style.FILL
-        textSize = 24F
+        textSize = 22F
     }
 
     var mapSensor: MapSensor? = null
@@ -44,10 +44,13 @@ class AirlySensorView(context: Context, attrs: AttributeSet) : View(context, att
             if (pollutionLevel != 0) {
                 paint.color = Color.WHITE
                 paint.shader = null
+
+                paint.typeface = Typeface.create(Typeface.MONOSPACE, Typeface.BOLD)
                 canvas.drawText("%.1fº".format(mapSensor.sensor?.currentMeasurements?.temperature), 42F, 29F, paint)
 
-                canvas.drawText("%.1fµg".format(mapSensor.sensor?.currentMeasurements?.pm10), 42F, 58F, paint)
-                canvas.drawText("%.1fµg".format(mapSensor.sensor?.currentMeasurements?.pm25), 42F, 86F, paint)
+                paint.typeface = Typeface.MONOSPACE
+                canvas.drawText("%.1fµg".format(mapSensor.sensor?.currentMeasurements?.pm10), 42F, 55F, paint)
+                canvas.drawText("%.1fµg".format(mapSensor.sensor?.currentMeasurements?.pm25), 42F, 82F, paint)
             }
         }
     }
