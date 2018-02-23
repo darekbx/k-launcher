@@ -10,14 +10,14 @@ open class IconLoader(val context: Context) {
 
     companion object {
         val DEFAULT_ICON = R.mipmap.ic_launcher
-
+        val CACHE_ENABLED = false
         val cache = hashMapOf<String, Drawable>()
     }
 
     fun loadIcon(resolveInfo: ResolveInfo): Drawable {
         val packageName = getPackageName(resolveInfo)
         return when {
-            cache.containsKey(packageName) -> cache.getValue(packageName)
+            CACHE_ENABLED && cache.containsKey(packageName) -> cache.getValue(packageName)
             else -> loadAndStore(resolveInfo, packageName)
         }
     }

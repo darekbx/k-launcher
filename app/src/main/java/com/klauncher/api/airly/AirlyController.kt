@@ -15,6 +15,10 @@ class AirlyController {
     lateinit var airlyService: AirlyEndpoints
         private set
 
+    constructor() {
+        setup()
+    }
+
     fun setup() {
         val httpLoggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY

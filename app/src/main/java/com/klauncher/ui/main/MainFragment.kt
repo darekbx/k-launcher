@@ -137,6 +137,7 @@ class MainFragment: MainContract.View, Fragment() {
         presenter.loadPollution()
         presenter.loadDotCount()
         presenter.loadIfWeather()
+        loadSunriseSunset();
     }
 
     override fun onDestroyView() {
