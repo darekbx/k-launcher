@@ -1,6 +1,10 @@
 package com.klauncher.ui.applications
 
 import android.app.Fragment
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +20,14 @@ import io.reactivex.subjects.PublishSubject
 
 class ApplicationsFragment : Fragment(), ApplicationsContract.View {
 
+    val applicationsReceiver =  object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            when(intent?.action) {
+                Intent.ACTION_PACKAGE_ADDED, Intent.ACTION_PACKAGE_REMOVED -> presenter.loadItems()
+            }
+        }
+    }
+
     private val presenter: ApplicationsContract.Presenter = ApplicationsPresenter(this)
     private val applicationsList = ArrayList<Application>()
     val closePublisher: PublishSubject<Any> = PublishSubject.create()
@@ -27,6 +39,7 @@ class ApplicationsFragment : Fragment(), ApplicationsContract.View {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.loadItems()
+        registerApplicationsBroadcast()
         with (grid) {
             adapter = applicationsAdapter
             setOnItemClickListener { _, _, position, _ -> handleOnClick(position) }
@@ -37,6 +50,11 @@ class ApplicationsFragment : Fragment(), ApplicationsContract.View {
         }
 
         sortingGrid.setOnItemClickListener { _, _, position, _ -> handleLetterClick(position) }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        context.unregisterReceiver(applicationsReceiver)
     }
 
     override fun setDistinctLetters(letters: HashSet<Char>) {
@@ -78,6 +96,14 @@ class ApplicationsFragment : Fragment(), ApplicationsContract.View {
             notifyDataSetChanged()
         }
         grid.post({ grid.setSelection(0) })
+    }
+
+    private fun registerApplicationsBroadcast() {
+        context.registerReceiver(applicationsReceiver, IntentFilter().apply {
+            addAction(Intent.ACTION_PACKAGE_ADDED)
+            addAction(Intent.ACTION_PACKAGE_REMOVED)
+            addDataScheme("package")
+        })
     }
 
     val applicationsAdapter: ApplicationsAdapter by lazy {

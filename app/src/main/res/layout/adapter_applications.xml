@@ -6,9 +6,10 @@
     </data>
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="54dp"
         >
         <ImageView
+            android:id="@+id/icon"
             android:layout_width="@dimen/application_size_icon"
             android:layout_height="@dimen/application_size_icon"
             android:scaleType="centerInside"
@@ -25,6 +26,19 @@
             android:textSize="8sp"
             android:typeface="monospace"
             android:text="@{application.clickCount + ``}"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/icon"
+            android:paddingLeft="1dp"
+            android:layout_marginTop="-6dp"
+            android:textColor="#666"
+            android:textSize="8sp"
+            android:typeface="monospace"
+            android:lines="1"
+            android:ellipsize="end"
+            android:text="@{application.name}"
             />
     </RelativeLayout>
 </layout>

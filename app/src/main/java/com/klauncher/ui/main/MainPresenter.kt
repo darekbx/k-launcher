@@ -10,11 +10,19 @@ import com.klauncher.model.rest.SensorError
 import com.klauncher.api.zm.PollutionLevel
 import com.klauncher.extensions.notNull
 import io.reactivex.Observable
+import io.reactivex.disposables.Disposable
 
 class MainPresenter(val view: MainContract.View): MainContract.Presenter {
 
+    private var sensorsHandle: Disposable? = null
+
     override fun loadSensors() {
-        Observable
+        sensorsHandle?.let {sensorsHandle ->
+            if (!sensorsHandle?.isDisposed()) {
+                sensorsHandle.dispose()
+            }
+        }
+        sensorsHandle = Observable
                 .fromArray(AirlySensors.sensors)
                 .flatMapIterable { mapSensors -> mapSensors }
                 .doOnNext { it.sensor = fetchSensorData(it.airlyId) }
@@ -22,7 +30,8 @@ class MainPresenter(val view: MainContract.View): MainContract.Presenter {
                 .notNull(view)
                 .subscribe(
                         { view.displaySensors(it) },
-                        { view.notifyError(it) }
+                        { view.notifyError(it) },
+                        { sensorsHandle?.dispose() }
                 )
     }
 
