@@ -32,6 +32,10 @@ import java.text.SimpleDateFormat
 
 class MainFragment: MainContract.View, Fragment() {
 
+    companion object {
+        val TRAFFIC_ENABLED = false
+    }
+
     val presenter = MainPresenter(this)
 
     val screenReceiver = object : BroadcastReceiver() {
@@ -120,15 +124,17 @@ class MainFragment: MainContract.View, Fragment() {
         airlyMap.adapter = airlyAdapter
         loadData()
 
-        val routePath = TrafficDrawable()
-        drawableContainer.background = routePath
+        if (TRAFFIC_ENABLED) {
+            val routePath = TrafficDrawable()
+            drawableContainer.background = routePath
 
-        ObjectAnimator.ofFloat(routePath, TrafficDrawable.MORPH_PROGRESS, 1f, 0f).apply {
-            duration = 20000L
-            interpolator = LinearInterpolator()
-            repeatCount = INFINITE
-            repeatMode = RESTART
-        }.start()
+            ObjectAnimator.ofFloat(routePath, TrafficDrawable.MORPH_PROGRESS, 1f, 0f).apply {
+                duration = 20000L
+                interpolator = LinearInterpolator()
+                repeatCount = INFINITE
+                repeatMode = RESTART
+            }.start()
+        }
     }
 
     private fun loadData() {

@@ -8,9 +8,11 @@ data class Pollution(
         val day_avg_value: String,
         val norm_value: String,
         val trend: String,
-        val state: String,
+        var state: String,
         val name: String,
         val location: String) {
+
+    constructor() : this("", "", "", "", "", "", "")
 
     val trendObject: Trend
         get() = Trend.valueOf(trend.toUpperCase())
@@ -23,10 +25,10 @@ data class Pollution(
     fun getColor() =
             when (stateObject) {
                 State.GOOD -> Color.rgb(76, 175, 80)
-                State.NOTBAD -> Color.rgb(255, 235, 59);
-                State.BAD -> Color.rgb(255, 152, 0);
-                State.VERYBAD -> Color.rgb(255, 87, 34);
-                State.EXTREMELYBAD -> Color.rgb(186, 0, 0);
+                State.NOTBAD -> Color.rgb(255, 235, 59)
+                State.BAD -> Color.rgb(255, 152, 0)
+                State.VERYBAD -> Color.rgb(255, 87, 34)
+                State.EXTREMELYBAD -> Color.rgb(186, 0, 0)
                 else -> Color.rgb(76, 175, 80)
             }
 
@@ -36,6 +38,18 @@ data class Pollution(
                 Trend.DOWN -> "\u2193"
                 Trend.NOCHANGE -> "-"
             }
+
+    fun translateToPollutionColor(value: Double, step: Double): Int {
+        state = when {
+            value < step -> State.GOOD
+            value >= step && value < step * 2 -> State.NOTBAD
+            value >= step * 2 && value < step * 3 -> State.BAD
+            value >= step * 3 && value < step * 4 -> State.VERYBAD
+            value >= step * 4 -> State.EXTREMELYBAD
+            else -> State.HAZARDOUS
+        }.name
+        return getColor()
+    }
 
     enum class Trend {
         UP,

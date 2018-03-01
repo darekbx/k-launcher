@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.view.View
 import com.klauncher.model.MapSensor
 import com.klauncher.model.rest.SensorError
+import com.klauncher.model.rest.zm.Pollution
 
 class AirlySensorView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
@@ -49,7 +50,11 @@ class AirlySensorView(context: Context, attrs: AttributeSet) : View(context, att
                 canvas.drawText("%.1fº".format(mapSensor.sensor?.currentMeasurements?.temperature), 42F, 29F, paint)
 
                 paint.typeface = Typeface.MONOSPACE
+
+                paint.color = Pollution().translateToPollutionColor(mapSensor.sensor?.currentMeasurements?.pm10 ?: 0.0, 50.0)
                 canvas.drawText("%.1fµg".format(mapSensor.sensor?.currentMeasurements?.pm10), 42F, 55F, paint)
+
+                paint.color = Pollution().translateToPollutionColor(mapSensor.sensor?.currentMeasurements?.pm25 ?: 0.0, 25.0)
                 canvas.drawText("%.1fµg".format(mapSensor.sensor?.currentMeasurements?.pm25), 42F, 82F, paint)
             }
         }
@@ -59,15 +64,16 @@ class AirlySensorView(context: Context, attrs: AttributeSet) : View(context, att
         val pollutionLevel = mapSensor.sensor?.currentMeasurements?.pollutionLevel ?: 0
         val colorHex = AirlyColors.from(pollutionLevel)
 
-        with (paint) {
+        with(paint) {
             color = Color.parseColor(colorHex)
             drawGradiontDot(canvas)
         }
     }
 
-    private fun Paint.drawGradiontDot(canvas: Canvas) {
-        shader = RadialGradient(DOT_SIZE, DOT_SIZE, 32F, color, Color.TRANSPARENT, Shader.TileMode.MIRROR)
-        canvas.drawCircle(DOT_SIZE, DOT_SIZE, 32F, this)
+    private fun drawGradiontDot(canvas: Canvas) {
+        //paint.shader = RadialGradient(DOT_SIZE, DOT_SIZE, 32F, paint.color, Color.TRANSPARENT, Shader.TileMode.MIRROR)
+        paint.color = Color.WHITE
+        canvas.drawCircle(DOT_SIZE, DOT_SIZE, 8F, paint)
     }
 
     private fun drawNoData(canvas: Canvas) {
