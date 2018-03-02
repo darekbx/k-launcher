@@ -72,8 +72,14 @@ class AirlySensorView(context: Context, attrs: AttributeSet) : View(context, att
 
     private fun drawGradiontDot(canvas: Canvas) {
         //paint.shader = RadialGradient(DOT_SIZE, DOT_SIZE, 32F, paint.color, Color.TRANSPARENT, Shader.TileMode.MIRROR)
-        paint.color = Color.WHITE
-        canvas.drawCircle(DOT_SIZE, DOT_SIZE, 8F, paint)
+        with(paint) {
+            color = Color.WHITE
+            style = Paint.Style.STROKE
+            strokeWidth = 3f
+            canvas.drawCircle(DOT_SIZE, DOT_SIZE, 8F, this)
+            style = Paint.Style.FILL_AND_STROKE
+            strokeWidth = 0f
+        }
     }
 
     private fun drawNoData(canvas: Canvas) {
