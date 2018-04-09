@@ -16,7 +16,7 @@ class SortingAdapter(context: Context?) : ArrayAdapter<SortItem>(context, R.layo
         val binding: AdapterSortingGridBinding =
                 when(convertView) {
                     null -> DataBindingUtil.inflate(inflater, R.layout.adapter_sorting_grid, parent, false)
-                    else -> DataBindingUtil.getBinding(convertView)
+                    else -> DataBindingUtil.getBinding(convertView)!!
                 }
         with (binding) {
             item = getItem(position)

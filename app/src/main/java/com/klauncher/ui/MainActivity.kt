@@ -79,16 +79,18 @@ class MainActivity : Activity, DrawerLayout.DrawerListener {
         drawer.closeDrawers()
     }
 
-    private val drawer: DrawerLayout by bind(R.id.drawer_layout)
+    override fun onDrawerStateChanged(newState: Int) { }
 
-    override fun onDrawerStateChanged(newState: Int) {}
-    override fun onDrawerSlide(drawerView: View?, slideOffset: Float) {}
-    override fun onDrawerOpened(drawerView: View?) {}
+    override fun onDrawerSlide(drawerView: View, slideOffset: Float) { }
 
-    override fun onDrawerClosed(drawerView: View?) {
+    override fun onDrawerClosed(drawerView: View) {
         val fragment = fragmentManager.findFragmentById(R.id.right_drawer)
         when (fragment) {
             is ApplicationsContract.View -> fragment.hideSorting()
         }
     }
+
+    override fun onDrawerOpened(drawerView: View) { }
+
+    private val drawer: DrawerLayout by bind(R.id.drawer_layout)
 }

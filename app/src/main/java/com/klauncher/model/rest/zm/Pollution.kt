@@ -36,7 +36,7 @@ data class Pollution(
             when (trendObject) {
                 Trend.UP -> "\u2191"
                 Trend.DOWN -> "\u2193"
-                Trend.NOCHANGE -> "-"
+                else -> "-"
             }
 
     fun translateToPollutionColor(value: Double, step: Double): Int {
@@ -54,7 +54,8 @@ data class Pollution(
     enum class Trend {
         UP,
         NOCHANGE,
-        DOWN
+        DOWN,
+        UNDEFINED
     }
 
     enum class State {

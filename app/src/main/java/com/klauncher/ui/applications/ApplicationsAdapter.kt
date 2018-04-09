@@ -15,7 +15,7 @@ class ApplicationsAdapter(context: Context) : ArrayAdapter<Application>(context,
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val binding: AdapterApplicationsBinding = when (convertView) {
             null -> DataBindingUtil.inflate(inflater, R.layout.adapter_applications, parent, false)
-            else -> DataBindingUtil.getBinding(convertView)
+            else -> DataBindingUtil.getBinding(convertView)!!
         }
         with(binding) {
             application = getItem(position)
