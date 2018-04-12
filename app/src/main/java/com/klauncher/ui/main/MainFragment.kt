@@ -18,6 +18,7 @@ import com.klauncher.R
 import com.klauncher.extensions.bind
 import com.klauncher.extensions.hide
 import com.klauncher.extensions.show
+import com.klauncher.extensions.threadToAndroid
 import com.klauncher.external.Preferences
 import com.klauncher.model.MapSensor
 import com.klauncher.model.rest.ifmeteo.WeatherConditions
@@ -27,16 +28,22 @@ import com.klauncher.ui.main.airly.AirlyViewAdapter
 import com.klauncher.ui.main.traffic.TrafficDrawable
 import com.klauncher.ui.main.screenon.ScreenTime
 import com.klauncher.ui.main.zm.PollutionView
+import io.reactivex.Observable
+import io.reactivex.Single
+import io.reactivex.disposables.Disposable
 import java.sql.Date
 import java.text.SimpleDateFormat
+import java.util.concurrent.TimeUnit
 
 class MainFragment: MainContract.View, Fragment() {
 
     companion object {
+        val LOAD_DATA_DELAY = 2L
         val TRAFFIC_ENABLED = false
     }
 
     val presenter = MainPresenter(this)
+    var subscription: Disposable? = null
 
     val screenReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -113,7 +120,20 @@ class MainFragment: MainContract.View, Fragment() {
 
     override fun onResume() {
         super.onResume()
-        loadData()
+        subscription = Single
+                .just(1)
+                .delay(LOAD_DATA_DELAY, TimeUnit.SECONDS)
+                .threadToAndroid()
+                .subscribe { _ -> loadData() }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        cancelRefresh()
+    }
+
+    override fun cancelRefresh() {
+        subscription?.dispose()
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {

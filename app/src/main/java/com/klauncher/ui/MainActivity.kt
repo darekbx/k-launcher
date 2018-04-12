@@ -12,6 +12,7 @@ import com.klauncher.ui.main.MainFragment
 import android.content.Intent
 import android.net.Uri
 import android.view.Gravity
+import com.klauncher.ui.main.MainContract
 
 
 class MainActivity : Activity, DrawerLayout.DrawerListener {
@@ -90,7 +91,12 @@ class MainActivity : Activity, DrawerLayout.DrawerListener {
         }
     }
 
-    override fun onDrawerOpened(drawerView: View) { }
+    override fun onDrawerOpened(drawerView: View) {
+        val fragment = fragmentManager.findFragmentById(R.id.content_frame)
+        when (fragment) {
+            is MainContract.View -> fragment.cancelRefresh()
+        }
+    }
 
     private val drawer: DrawerLayout by bind(R.id.drawer_layout)
 }

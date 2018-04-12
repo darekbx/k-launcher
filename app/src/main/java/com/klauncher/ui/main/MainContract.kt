@@ -17,6 +17,7 @@ interface MainContract {
         fun displayIfWeather(weatherConditions: WeatherConditions)
 
         fun notifyError(error: Throwable)
+        fun cancelRefresh()
     }
 
     interface Presenter {
