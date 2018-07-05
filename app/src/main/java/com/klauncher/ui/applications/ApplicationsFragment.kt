@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -43,13 +44,21 @@ class ApplicationsFragment : Fragment(), ApplicationsContract.View {
         with (grid) {
             adapter = applicationsAdapter
             setOnItemClickListener { _, _, position, _ -> handleOnClick(position) }
-            setOnItemLongClickListener { _, _, _, _ ->
-                showSorting()
+            setOnItemLongClickListener { _, _, position, _ ->
+                val application = applicationsAdapter.getItem(position)
+                uninstall(application)
+                //showSorting()
                 true
             }
         }
 
         sortingGrid.setOnItemClickListener { _, _, position, _ -> handleLetterClick(position) }
+    }
+
+    fun uninstall(application: Application) {
+        startActivity(
+                Intent(Intent.ACTION_DELETE, Uri.fromParts("package", application.packageName, null))
+        )
     }
 
     override fun onDestroyView() {

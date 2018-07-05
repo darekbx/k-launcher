@@ -28,7 +28,6 @@ import com.klauncher.ui.main.airly.AirlyViewAdapter
 import com.klauncher.ui.main.traffic.TrafficDrawable
 import com.klauncher.ui.main.screenon.ScreenTime
 import com.klauncher.ui.main.zm.PollutionView
-import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.disposables.Disposable
 import java.sql.Date
@@ -124,7 +123,9 @@ class MainFragment: MainContract.View, Fragment() {
                 .just(1)
                 .delay(LOAD_DATA_DELAY, TimeUnit.SECONDS)
                 .threadToAndroid()
-                .subscribe { _ -> loadData() }
+                .subscribe { _ -> loadOnlineData() }
+
+        loadOfflineData()
     }
 
     override fun onPause() {
@@ -142,7 +143,7 @@ class MainFragment: MainContract.View, Fragment() {
         loadSunriseSunset()
 
         airlyMap.adapter = airlyAdapter
-        loadData()
+        loadOnlineData()
 
         if (TRAFFIC_ENABLED) {
             val routePath = TrafficDrawable()
@@ -157,13 +158,16 @@ class MainFragment: MainContract.View, Fragment() {
         }
     }
 
-    private fun loadData() {
+    private fun loadOfflineData() {
+        presenter.loadDotCount()
+        loadSunriseSunset()
+    }
+
+    private fun loadOnlineData() {
         airlyAdapter.clear()
         presenter.loadSensors()
         presenter.loadPollution()
-        presenter.loadDotCount()
         presenter.loadIfWeather()
-        loadSunriseSunset();
     }
 
     override fun onDestroyView() {
