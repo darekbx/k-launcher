@@ -2,6 +2,8 @@ package com.klauncher.model.rest.zm
 
 import android.graphics.Color
 import android.text.TextUtils
+import android.util.Log
+import kotlin.math.log
 
 data class Pollution(
         val current_value: String,
@@ -18,7 +20,7 @@ data class Pollution(
         get() = Trend.valueOf(trend.toUpperCase())
 
     val stateObject: State
-        get() = State.valueOf(state.toUpperCase())
+        get() = State.parse(state.toUpperCase())
 
     fun isValid() = !TextUtils.isEmpty(current_value)
 
@@ -64,6 +66,15 @@ data class Pollution(
         BAD,
         VERYBAD,
         EXTREMELYBAD,
-        HAZARDOUS
+        HAZARDOUS;
+
+        companion object {
+            fun parse(value: String): State {
+                if (TextUtils.isEmpty(value)) {
+                    return HAZARDOUS
+                }
+                return State.valueOf(value)
+            }
+        }
     }
 }
