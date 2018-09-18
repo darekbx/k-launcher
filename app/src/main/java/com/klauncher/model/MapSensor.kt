@@ -1,6 +1,6 @@
 package com.klauncher.model
 
-import com.klauncher.model.rest.Sensor
+import com.klauncher.model.rest.airly.Sensor
 
 data class MapSensor(
         val airlyId: Int,

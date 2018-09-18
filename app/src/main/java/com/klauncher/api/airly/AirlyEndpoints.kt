@@ -1,6 +1,6 @@
 package com.klauncher.api.airly
 
-import com.klauncher.model.rest.Sensor
+import com.klauncher.model.rest.airly.Sensor
 import com.klauncher.model.rest.SimpleSensor
 import retrofit2.Call
 import retrofit2.http.GET
@@ -13,7 +13,7 @@ interface AirlyEndpoints {
         "Accept: application/json",
         "apikey: ${AirlyController.AUTHENTICATION_KEY}"
     )
-    @GET("/v1/sensors/current")
+    @GET("/v2/installations")
     fun loadSensorsByArea(
             @Query("southwestLat") southwestLat: String,
             @Query("southwestLong") southwestLong: String,
@@ -25,8 +25,8 @@ interface AirlyEndpoints {
             "Accept: application/json",
             "apikey: ${AirlyController.AUTHENTICATION_KEY}"
     )
-    @GET("/v1/sensor/measurements")
+    @GET("/v2/measurements/installation")
     fun loadSensor(
-            @Query("sensorId") sensorId: Int
+            @Query("installationId") installationId: Int
     ): Call<Sensor>
 }

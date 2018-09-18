@@ -5,7 +5,7 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
 import com.klauncher.model.MapSensor
-import com.klauncher.model.rest.Measurements
+import com.klauncher.model.rest.airly.Measurement
 import com.klauncher.model.rest.SensorError
 import com.klauncher.model.rest.zm.Pollution
 
@@ -42,9 +42,8 @@ class AirlySensorView(context: Context, attrs: AttributeSet) : View(context, att
     }
 
     private fun drawSensor(mapSensor: MapSensor, canvas: Canvas) {
-
-        mapSensor.sensor?.currentMeasurements?.let { currentMeasurements ->
-            if (currentMeasurements.pollutionLevel != 0) {
+        mapSensor.sensor?.current?.let { currentMeasurements ->
+            if (currentMeasurements.values.isNotEmpty()) {
                 drawDot(canvas)
 
                 with(canvas) {
@@ -57,32 +56,45 @@ class AirlySensorView(context: Context, attrs: AttributeSet) : View(context, att
 
                     restore()
                 }
-            }else {
+            } else {
                 drawDot(canvas, false);
             }
         }
     }
 
-    private fun drawTemperature(currentMeasurements: Measurements, canvas: Canvas) {
+    private fun drawTemperature(currentMeasurement: Measurement, canvas: Canvas) {
+        val temp = currentMeasurement.values.first { it.name == "TEMPERATURE" }
         paint.typeface = Typeface.create(Typeface.MONOSPACE, Typeface.BOLD)
-        paint.color = when (currentMeasurements.temperature) {
+        paint.color = when (temp.value.toDouble()) {
             0.0 -> Color.GRAY
             else -> Color.WHITE
         }
-        canvas.drawText("%.1fº ".format(currentMeasurements.temperature), 0F, 9F, paint)
+        canvas.drawText("%.1fº ".format(temp.value.toDouble()), 0F, 9F, paint)
     }
 
-    private fun drawPM10Measurement(currentMeasurements: Measurements, canvas: Canvas) {
+    private fun drawPM10Measurement(currentMeasurement: Measurement, canvas: Canvas) {
+        val pm10 = currentMeasurement.values.first { it.name == "PM10" }.value.toDouble()
+        val colorString = currentMeasurement.indexes.firstOrNull()
         paint.typeface = Typeface.MONOSPACE
-        paint.color = pollution.translateToPollutionColor(currentMeasurements.pm10, 50.0)
-        canvas.drawText("%.1fµg".format(currentMeasurements.pm10), 0F, 35F, paint)
+        if (colorString != null) {
+            paint.color = Color.parseColor(colorString.color)
+        } else {
+            paint.color = pollution.translateToPollutionColor(pm10, 50.0)
+        }
+        canvas.drawText("%.1fµg".format(pm10), 0F, 35F, paint)
     }
 
 
-    private fun drawPM25Measurement(currentMeasurements: Measurements, canvas: Canvas) {
+    private fun drawPM25Measurement(currentMeasurement: Measurement, canvas: Canvas) {
+        val pm25 = currentMeasurement.values.first { it.name == "PM25" }.value.toDouble()
+        val colorString = currentMeasurement.indexes.firstOrNull()
         paint.typeface = Typeface.MONOSPACE
-        paint.color = pollution.translateToPollutionColor(currentMeasurements.pm25, 25.0)
-        canvas.drawText("%.1fµg".format(currentMeasurements.pm25), 0F, 62F, paint)
+        if (colorString != null) {
+            paint.color = Color.parseColor(colorString.color)
+        } else {
+            paint.color = pollution.translateToPollutionColor(pm25, 25.0)
+        }
+        canvas.drawText("%.1fµg".format(pm25), 0F, 62F, paint)
     }
 
     private fun drawDot(canvas: Canvas, hasData: Boolean = true) {

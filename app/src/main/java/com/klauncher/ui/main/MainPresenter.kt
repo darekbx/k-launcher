@@ -5,7 +5,7 @@ import com.klauncher.api.airly.AirlyController
 import com.klauncher.api.airly.AirlySensors
 import com.klauncher.api.dotpad.DotsCount
 import com.klauncher.extensions.threadToAndroid
-import com.klauncher.model.rest.Sensor
+import com.klauncher.model.rest.airly.Sensor
 import com.klauncher.model.rest.SensorError
 import com.klauncher.api.zm.PollutionLevel
 import com.klauncher.extensions.notNull
