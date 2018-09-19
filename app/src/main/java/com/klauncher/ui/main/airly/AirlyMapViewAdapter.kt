@@ -12,6 +12,9 @@ class AirlyMapViewAdapter(context: Context, attrs: AttributeSet) : AdapterView<A
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
 
+        val x = 6
+        var y = 200
+
         airlyViewAdapter?.let { airlyViewAdapter ->
             (0..airlyViewAdapter.count - 1)
                     .map {
@@ -24,13 +27,14 @@ class AirlyMapViewAdapter(context: Context, attrs: AttributeSet) : AdapterView<A
                         with(view) {
                             measure(-1, -1)
                             layout(
-                                    mapSensor.x,
-                                    mapSensor.y,
-                                    mapSensor.x + measuredWidth,
-                                    mapSensor.y + measuredHeight
+                                    x,
+                                    y,
+                                    x + measuredWidth,
+                                    y + measuredHeight
                             )
                             addViewInLayout(view, index, null, true)
                         }
+                        y += 38
                     }
             invalidate()
         }

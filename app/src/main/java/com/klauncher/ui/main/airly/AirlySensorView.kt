@@ -13,8 +13,9 @@ class AirlySensorView(context: Context, attrs: AttributeSet) : View(context, att
 
     companion object {
         const val DOT_SIZE = 22F
-        const val BOX_WIDTH = 200
-        const val BOX_HEIGHT = 98
+        const val BOX_WIDTH = 600
+        const val BOX_HEIGHT = 38
+        const val OFFSET = 110f
     }
 
     val paint = Paint().apply {
@@ -51,8 +52,12 @@ class AirlySensorView(context: Context, attrs: AttributeSet) : View(context, att
                     translate(130f, 20f)
 
                     drawTemperature(currentMeasurements, this)
-                    drawPM10Measurement(currentMeasurements, this)
-                    drawPM25Measurement(currentMeasurements, this)
+                    translate(OFFSET, 0F)
+                    drawMeasurement(currentMeasurements, "PM1", this)
+                    translate(OFFSET, 0F)
+                    drawMeasurement(currentMeasurements, "PM10", this)
+                    translate(OFFSET, 0F)
+                    drawMeasurement(currentMeasurements, "PM25", this)
 
                     restore()
                 }
@@ -72,29 +77,16 @@ class AirlySensorView(context: Context, attrs: AttributeSet) : View(context, att
         canvas.drawText("%.1fº ".format(temp.value.toDouble()), 0F, 9F, paint)
     }
 
-    private fun drawPM10Measurement(currentMeasurement: Measurement, canvas: Canvas) {
-        val pm10 = currentMeasurement.values.first { it.name == "PM10" }.value.toDouble()
+    private fun drawMeasurement(currentMeasurement: Measurement, key: String, canvas: Canvas) {
+        val value = currentMeasurement.values.first { it.name == key }.value.toDouble()
         val colorString = currentMeasurement.indexes.firstOrNull()
         paint.typeface = Typeface.MONOSPACE
         if (colorString != null) {
             paint.color = Color.parseColor(colorString.color)
         } else {
-            paint.color = pollution.translateToPollutionColor(pm10, 50.0)
+            paint.color = pollution.translateToPollutionColor(value, 50.0)
         }
-        canvas.drawText("%.1fµg".format(pm10), 0F, 35F, paint)
-    }
-
-
-    private fun drawPM25Measurement(currentMeasurement: Measurement, canvas: Canvas) {
-        val pm25 = currentMeasurement.values.first { it.name == "PM25" }.value.toDouble()
-        val colorString = currentMeasurement.indexes.firstOrNull()
-        paint.typeface = Typeface.MONOSPACE
-        if (colorString != null) {
-            paint.color = Color.parseColor(colorString.color)
-        } else {
-            paint.color = pollution.translateToPollutionColor(pm25, 25.0)
-        }
-        canvas.drawText("%.1fµg".format(pm25), 0F, 62F, paint)
+        canvas.drawText("%.1fµg".format(value), 0F, 9F, paint)
     }
 
     private fun drawDot(canvas: Canvas, hasData: Boolean = true) {
