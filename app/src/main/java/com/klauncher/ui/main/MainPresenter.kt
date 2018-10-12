@@ -11,6 +11,8 @@ import com.klauncher.api.zm.PollutionLevel
 import com.klauncher.extensions.notNull
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
+import retrofit2.Response
+import java.net.HttpURLConnection
 
 class MainPresenter(val view: MainContract.View): MainContract.Presenter {
 
@@ -38,13 +40,30 @@ class MainPresenter(val view: MainContract.View): MainContract.Presenter {
     fun fetchSensorData(sensorId: Int): Sensor? {
         try {
             val response = airlyController.airlyService.loadSensor(sensorId).execute()
-            return when (response.isSuccessful) {
-                true -> response.body()
-                false -> SensorError("HTTP error code: {$response.code()}")
+            return when {
+                response.isSuccessful -> {
+                    response.body()?.apply {
+                        applyRateLimits(response)
+                    }
+                }
+                response.code() == 429 -> {
+                    val sensor = Sensor()
+                    sensor.applyRateLimits(response)
+                    return sensor
+                }
+                else -> SensorError("HTTP error code: {$response.code()}")
             }
         } catch (e: Exception) {
             return SensorError(e.message ?: "Unknown error")
         }
+    }
+
+    private fun Sensor.applyRateLimits(response: Response<Sensor>) {
+        val headers = response.headers()
+        rateLimitDay = headers["X-RateLimit-Limit-day"]?.toIntOrNull() ?: 0
+        rateLimitMinute = headers["X-RateLimit-Limit-minute"]?.toIntOrNull() ?: 0
+        rateLimitRemainingDay = headers["X-RateLimit-Remaining-day"]?.toIntOrNull() ?: 0
+        rateLimitRemainingMinute = headers["X-RateLimit-Remaining-minute"]?.toIntOrNull() ?: 0
     }
 
     override fun loadPollution() {

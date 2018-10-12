@@ -3,6 +3,7 @@
     <string name="screen_on">Screen on: %s</string>
     <string name="sunrise">Sunrise: 0%s</string>
     <string name="sunset">Sunset: %s</string>
+    <string name="limits">Day limit: %d/%d, minute limit: %d/%d</string>
 
     <string name="moni_number">509588624</string>
     <string name="dot_pad_packagename">com.dotpad</string>

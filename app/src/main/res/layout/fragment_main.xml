@@ -111,9 +111,21 @@
 
     <com.klauncher.ui.main.airly.AirlyMapViewAdapter
         android:id="@+id/airly_map"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="-76px"
+        android:layout_width="180dp"
+        android:layout_height="84dp"
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/sunset_text"
+        />
+
+    <TextView
+        android:id="@+id/limits_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/small_margin"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/airly_map"
+        android:textColor="#888"
+        style="@style/TinyText"
         />
 
     <LinearLayout

@@ -6,6 +6,7 @@ import android.animation.ValueAnimator.RESTART
 import android.app.Fragment
 import android.content.*
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -62,6 +63,15 @@ class MainFragment: MainContract.View, Fragment() {
             add(mapSensor)
             notifyDataSetChanged()
             airlyMap.refresh()
+        }
+
+        mapSensor.sensor?.let { sensor ->
+            limitsInfo.setText(getString(R.string.limits,
+                    sensor.rateLimitRemainingDay, sensor.rateLimitDay,
+                    sensor.rateLimitRemainingMinute, sensor.rateLimitMinute))
+
+            val limitExceed = sensor.rateLimitRemainingDay == 0 || sensor.rateLimitRemainingMinute == 0
+            limitsInfo.setTextColor(if (limitExceed) Color.RED else Color.GRAY)
         }
     }
 
@@ -211,5 +221,6 @@ class MainFragment: MainContract.View, Fragment() {
     private val pollutionPM10: PollutionView by bind(R.id.pollution_pm10)
     private val pollutionPM25: PollutionView by bind(R.id.pollution_pm25)
     private val airlyMap: AirlyMapViewAdapter by bind(R.id.airly_map)
+    private val limitsInfo: TextView by bind(R.id.limits_text)
     private val drawableContainer: LinearLayout by bind(R.id.drawable_container)
 }

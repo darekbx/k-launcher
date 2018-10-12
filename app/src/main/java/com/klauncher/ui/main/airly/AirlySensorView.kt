@@ -7,6 +7,7 @@ import android.view.View
 import com.klauncher.model.MapSensor
 import com.klauncher.model.rest.airly.Measurement
 import com.klauncher.model.rest.SensorError
+import com.klauncher.model.rest.airly.Index
 import com.klauncher.model.rest.zm.Pollution
 
 class AirlySensorView(context: Context, attrs: AttributeSet) : View(context, attrs) {
@@ -18,13 +19,20 @@ class AirlySensorView(context: Context, attrs: AttributeSet) : View(context, att
         const val OFFSET = 110f
     }
 
-    val paint = Paint().apply {
+    val textPaint = Paint().apply {
         isAntiAlias = true
         color = Color.WHITE
         style = Paint.Style.FILL
         textAlign = Paint.Align.RIGHT
         typeface = Typeface.MONOSPACE
         textSize = 22F
+    }
+
+    val paint = Paint().apply {
+        isAntiAlias = true
+        color = Color.WHITE
+        style = Paint.Style.STROKE
+        strokeWidth = 3f
     }
 
     var mapSensor: MapSensor? = null
@@ -46,57 +54,61 @@ class AirlySensorView(context: Context, attrs: AttributeSet) : View(context, att
         mapSensor.sensor?.current?.let { currentMeasurements ->
             if (currentMeasurements.values.isNotEmpty()) {
                 drawDot(canvas)
-
                 with(canvas) {
                     save()
-                    translate(130f, 20f)
+                    translate(30f, 20f)
 
                     drawTemperature(currentMeasurements, this)
-                    translate(OFFSET, 0F)
                     drawMeasurement(currentMeasurements, "PM1", this)
-                    translate(OFFSET, 0F)
                     drawMeasurement(currentMeasurements, "PM10", this)
-                    translate(OFFSET, 0F)
                     drawMeasurement(currentMeasurements, "PM25", this)
 
                     restore()
                 }
             } else {
-                drawDot(canvas, false);
+                drawDot(canvas, false)
             }
         }
     }
 
+    private fun drawLimits(mapSensor: MapSensor, canvas: Canvas) {
+        canvas.translate(OFFSET, 0F)
+
+    }
+
     private fun drawTemperature(currentMeasurement: Measurement, canvas: Canvas) {
-        val temp = currentMeasurement.values.first { it.name == "TEMPERATURE" }
-        paint.typeface = Typeface.create(Typeface.MONOSPACE, Typeface.BOLD)
-        paint.color = when (temp.value.toDouble()) {
-            0.0 -> Color.GRAY
-            else -> Color.WHITE
-        }
-        canvas.drawText("%.1fº ".format(temp.value.toDouble()), 0F, 9F, paint)
+        canvas.translate(OFFSET, 0F)
+        currentMeasurement.values
+                .firstOrNull { it.name == "TEMPERATURE" }
+                ?.let { temp ->
+                    textPaint.typeface = Typeface.create(Typeface.MONOSPACE, Typeface.BOLD)
+                    textPaint.color = Color.WHITE
+                    canvas.drawText("%.1fº ".format(temp.value.toDouble()), 0F, 9F, textPaint)
+                }
     }
 
     private fun drawMeasurement(currentMeasurement: Measurement, key: String, canvas: Canvas) {
-        val value = currentMeasurement.values.first { it.name == key }.value.toDouble()
-        val colorString = currentMeasurement.indexes.firstOrNull()
-        paint.typeface = Typeface.MONOSPACE
-        if (colorString != null) {
-            paint.color = Color.parseColor(colorString.color)
-        } else {
-            paint.color = pollution.translateToPollutionColor(value, 50.0)
-        }
-        canvas.drawText("%.1fµg".format(value), 0F, 9F, paint)
+        canvas.translate(OFFSET, 0F)
+        currentMeasurement.values
+                .firstOrNull { it.name == key }
+                ?.value?.toDouble()
+                ?.let { value ->
+                    val colorString = currentMeasurement.indexes.firstOrNull()
+                    textPaint.typeface = Typeface.MONOSPACE
+                    textPaint.color = extractColor(colorString, value)
+                    canvas.drawText("%.1fµg".format(value), 0F, 9F, textPaint)
+                }
+    }
+
+    private fun extractColor(colorString: Index?, value: Double) = when (colorString) {
+        null -> pollution.translateToPollutionColor(value, 50.0)
+        else -> Color.parseColor(colorString.color)
     }
 
     private fun drawDot(canvas: Canvas, hasData: Boolean = true) {
         with(paint) {
             color = if (hasData) Color.WHITE else Color.GRAY
-            style = Paint.Style.STROKE
-            strokeWidth = 3f
             canvas.drawCircle(DOT_SIZE, DOT_SIZE, 8F, this)
-            style = Paint.Style.FILL_AND_STROKE
-            strokeWidth = 0f
         }
     }
 
