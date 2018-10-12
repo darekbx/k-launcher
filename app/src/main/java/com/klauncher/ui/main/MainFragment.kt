@@ -129,6 +129,7 @@ class MainFragment: MainContract.View, Fragment() {
 
     override fun onResume() {
         super.onResume()
+        refreshCountDown.start()
         subscription = Single
                 .just(1)
                 .delay(LOAD_DATA_DELAY, TimeUnit.SECONDS)
@@ -144,6 +145,7 @@ class MainFragment: MainContract.View, Fragment() {
     }
 
     override fun cancelRefresh() {
+        refreshCountDown.stop()
         subscription?.dispose()
     }
 
@@ -152,6 +154,7 @@ class MainFragment: MainContract.View, Fragment() {
         updateScreenOn()
         loadSunriseSunset()
 
+        refreshCountDown.reloadDelay = TimeUnit.SECONDS.toMillis(LOAD_DATA_DELAY)
         airlyMap.adapter = airlyAdapter
         loadOnlineData()
 
@@ -223,4 +226,5 @@ class MainFragment: MainContract.View, Fragment() {
     private val airlyMap: AirlyMapViewAdapter by bind(R.id.airly_map)
     private val limitsInfo: TextView by bind(R.id.limits_text)
     private val drawableContainer: LinearLayout by bind(R.id.drawable_container)
+    private val refreshCountDown: RefreshCountDown by bind(R.id.refresh_count_down)
 }

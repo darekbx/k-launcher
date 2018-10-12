@@ -14,6 +14,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         style="@style/TinyText"
+        tools:text="Screen on"
         />
 
     <TextView
@@ -24,6 +25,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@id/screen_on_text"
         style="@style/TinyText"
+        tools:text="Sunrise"
         />
 
     <TextView
@@ -34,6 +36,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@id/sunrise_text"
         style="@style/TinyText"
+        tools:text="Sunset"
         />
 
     <com.klauncher.ui.main.zm.PollutionView
@@ -67,6 +70,7 @@
         android:gravity="right"
         android:layout_below="@id/pollution_pm25"
         style="@style/TinyText"
+        tools:text="Pollution info"
         />
 
     <TextView
@@ -78,6 +82,7 @@
         android:gravity="right"
         android:layout_below="@id/pollution_location_info"
         style="@style/TinyText"
+        tools:text="IF temp"
         />
     <TextView
         android:id="@+id/if_wind_chill"
@@ -88,6 +93,7 @@
         android:gravity="right"
         android:layout_below="@id/if_temperature"
         style="@style/TinyText"
+        tools:text="IF wind"
         />
 
     <ImageView
@@ -117,6 +123,16 @@
         android:layout_below="@id/sunset_text"
         />
 
+    <com.klauncher.ui.main.RefreshCountDown
+        android:id="@+id/refresh_count_down"
+        android:layout_width="2dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/airly_map"
+        android:layout_alignBottom="@id/airly_map"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="8dp"
+        />
+
     <TextView
         android:id="@+id/limits_text"
         android:layout_width="wrap_content"
@@ -126,6 +142,7 @@
         android:layout_below="@id/airly_map"
         android:textColor="#888"
         style="@style/TinyText"
+        tools:text="Limits"
         />
 
     <LinearLayout
