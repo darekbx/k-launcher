@@ -38,9 +38,9 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    kapt "android.arch.persistence.room:compiler:1.0.0"
+    kapt "android.arch.persistence.room:implementationr:1.0.0"
 
     implementation "android.arch.persistence.room:runtime:1.0.0"
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
@@ -49,24 +49,24 @@ dependencies {
     implementation 'com.android.support:support-v4:27.0.2'
     implementation 'com.android.support:design:27.0.2'
 
-    compile group: 'net.time4j', name: 'time4j-android', version: '3.38-2017c'
-    compile "com.squareup.retrofit2:retrofit:2.3.0"
-    compile "com.squareup.retrofit2:adapter-rxjava2:2.3.0"
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
-    compile 'com.google.code.gson:gson:2.6.2'
-    compile 'org.koin:koin-core:0.6.1'
-    compile 'org.koin:koin-android:0.6.1'
+    implementation group: 'net.time4j', name: 'time4j-android', version: '3.38-2017c'
+    implementation "com.squareup.retrofit2:retrofit:2.3.0"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.3.0"
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+    implementation 'com.google.code.gson:gson:2.6.2'
+    implementation 'org.koin:koin-core:0.6.1'
+    implementation 'org.koin:koin-android:0.6.1'
 
-    compile 'io.reactivex.rxjava2:rxjava:2.1.0'
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'io.reactivex.rxjava2:rxkotlin:2.1.0'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'io.reactivex.rxjava2:rxkotlin:2.1.0'
 
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:1.+'
-    testCompile 'org.robolectric:robolectric:3.1.1'
-    testCompile 'org.koin:koin-test:0.6.1'
-    testProvided "com.nhaarman:mockito-kotlin-kt1.1:1.5.0"
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:1.+'
+    testImplementation 'org.robolectric:robolectric:3.1.1'
+    testImplementation 'org.koin:koin-test:0.6.1'
+    testImplementation "com.nhaarman:mockito-kotlin-kt1.1:1.5.0"
 }
 
 repositories {
