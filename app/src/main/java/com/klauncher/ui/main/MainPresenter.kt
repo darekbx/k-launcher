@@ -1,5 +1,6 @@
 package com.klauncher.ui.main
 
+import android.util.Log
 import com.klauncher.api.ifmeteo.IfWeather
 import com.klauncher.api.airly.AirlyController
 import com.klauncher.api.airly.AirlySensors
@@ -68,10 +69,14 @@ class MainPresenter(val view: MainContract.View): MainContract.Presenter {
     }
 
     override fun loadAntistorm() {
-        CoroutineScope(Dispatchers.Main).launch {
-            AntiStorm()
-                    .loadImages()
-                    ?.run { view.displayAntistorm(this) }
+        try {
+            CoroutineScope(Dispatchers.Main).launch {
+                AntiStorm()
+                        .loadImages()
+                        ?.run { view.displayAntistorm(this) }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 

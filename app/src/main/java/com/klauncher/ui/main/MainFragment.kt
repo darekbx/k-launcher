@@ -38,7 +38,7 @@ import java.util.concurrent.TimeUnit
 class MainFragment: MainContract.View, Fragment() {
 
     companion object {
-        val LOAD_DATA_DELAY = 2L
+        val LOAD_DATA_DELAY = 3L
         val TRAFFIC_ENABLED = false
     }
 
