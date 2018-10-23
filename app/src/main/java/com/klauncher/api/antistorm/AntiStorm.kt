@@ -1,13 +1,11 @@
 package com.klauncher.api.antistorm
 
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import kotlinx.coroutines.experimental.*
-import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.HttpException
 import java.lang.Exception
 
 class AntiStorm {
@@ -21,13 +19,41 @@ class AntiStorm {
         const val IMAGE_STORM = "/visualPhenom/%s-storm-visualPhenomenon.png" // frontFileName
     }
 
-    suspend fun loadApi(): String? {
-        val api = loadUrl(apiUrl())?.string()
-
-        return api
+    suspend fun loadImages(): List<Bitmap>? {
+        return loadImageUrls()?.let { urls ->
+            urls.map { loadImage(it) }.filterNotNull()
+        } ?: null
     }
 
-    suspend fun loadUrl(url: String) = GlobalScope.async(Dispatchers.Main) {
+    suspend fun loadImageUrls(): Array<String>? {
+        val content = loadUrl(apiUrl())?.string()
+        return content?.run { extractResponse(this) } ?: null
+    }
+
+    suspend fun loadImage(url: String): Bitmap? {
+        return loadUrl(url)?.byteStream()?.run { BitmapFactory.decodeStream(this) } ?: null
+    }
+
+    private fun extractResponse(content: String): Array<String> {
+        ApiParser()
+                .parse(content)
+                .takeIf { it.isValid() }
+                ?.run {
+                    val folderName = folderNames.first()
+                    val fileName = fileNames.first()
+                    val fileFrontName = fileFrontNames.first()
+
+                    val probabilityUrl = probabilityUrl(folderName, fileName)
+                    val rainUrl = rainUrl(fileFrontName)
+                    val stormUrl = stormUrl(fileFrontName)
+
+                    return arrayOf(probabilityUrl, rainUrl, stormUrl)
+                }
+
+        return emptyArray()
+    }
+
+    suspend fun loadUrl(url: String) = GlobalScope.async(Dispatchers.IO) {
         val request = buildRequest(url)
         val response = httpClient.newCall(request).execute()
         when (response.isSuccessful) {

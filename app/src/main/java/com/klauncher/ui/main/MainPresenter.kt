@@ -3,6 +3,7 @@ package com.klauncher.ui.main
 import com.klauncher.api.ifmeteo.IfWeather
 import com.klauncher.api.airly.AirlyController
 import com.klauncher.api.airly.AirlySensors
+import com.klauncher.api.antistorm.AntiStorm
 import com.klauncher.api.dotpad.DotsCount
 import com.klauncher.extensions.threadToAndroid
 import com.klauncher.model.rest.airly.Sensor
@@ -11,8 +12,8 @@ import com.klauncher.api.zm.PollutionLevel
 import com.klauncher.extensions.notNull
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
+import kotlinx.coroutines.experimental.*
 import retrofit2.Response
-import java.net.HttpURLConnection
 
 class MainPresenter(val view: MainContract.View): MainContract.Presenter {
 
@@ -64,6 +65,14 @@ class MainPresenter(val view: MainContract.View): MainContract.Presenter {
         rateLimitMinute = headers["X-RateLimit-Limit-minute"]?.toIntOrNull() ?: 0
         rateLimitRemainingDay = headers["X-RateLimit-Remaining-day"]?.toIntOrNull() ?: 0
         rateLimitRemainingMinute = headers["X-RateLimit-Remaining-minute"]?.toIntOrNull() ?: 0
+    }
+
+    override fun loadAntistorm() {
+        CoroutineScope(Dispatchers.Main).launch {
+            AntiStorm()
+                    .loadImages()
+                    ?.run { view.displayAntistorm(this) }
+        }
     }
 
     override fun loadPollution() {

@@ -17,10 +17,42 @@ class AntiStormTest {
     @Test
     fun `Load api and check result`() {
         runBlocking {
-            val response = antiStorm.loadApi()
-            System.out.print(response)
-            assertNotNull(response)
-            assertTrue(response?.indexOf("timestamp") == 0)
+            val response = antiStorm.loadUrl(antiStorm.apiUrl())
+            assertNotNull(response?.string())
+            assertTrue(response?.string()?.indexOf("timestamp") == 0)
+        }
+    }
+
+    @Test
+    fun `Load images`() {
+        runBlocking {
+            val images = antiStorm.loadImages()
+            assertNotNull(images)
+            assertEquals(3, images?.size)
+            var image1 = images?.get(0)
+            var image2 = images?.get(1)
+            var image3 = images?.get(2)
+            assertNotNull(image1)
+            assertEquals(350, image1?.width)
+            assertEquals(350, image1?.height)
+            assertNotNull(image2)
+            assertEquals(775, image2?.width)
+            assertEquals(775, image2?.height)
+            assertNotNull(image3)
+            assertEquals(1190, image3?.width)
+            assertEquals(1190, image3?.height)
+        }
+    }
+
+    @Test
+    fun `Load image from url`() {
+        runBlocking {
+            val images = antiStorm.loadImageUrls()
+            assertNotNull(images)
+            val image = antiStorm.loadImage(images?.get(1) ?: "")
+            assertNotNull(image)
+            assertEquals(775, image?.width)
+            assertEquals(775, image?.height)
         }
     }
 

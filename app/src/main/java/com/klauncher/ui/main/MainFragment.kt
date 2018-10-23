@@ -101,6 +101,16 @@ class MainFragment: MainContract.View, Fragment() {
         }
     }
 
+    override fun displayAntistorm(images: List<Bitmap>) {
+        if (images.size == 3) {
+            with (images) {
+                antistormImage1.setImageBitmap(get(0))
+                antistormImage2.setImageBitmap(get(1))
+                antistormImage3.setImageBitmap(get(2))
+            }
+        }
+    }
+
     private fun hideIfMeteoDoubleViews() {
         ifTemperature.hide()
         ifWindChill.hide()
@@ -178,9 +188,12 @@ class MainFragment: MainContract.View, Fragment() {
 
     private fun loadOnlineData() {
         airlyAdapter.clear()
-        presenter.loadSensors()
-        presenter.loadPollution()
-        presenter.loadIfWeather()
+        with(presenter) {
+            loadSensors()
+            loadPollution()
+            loadIfWeather()
+            loadAntistorm()
+        }
     }
 
     override fun onDestroyView() {
@@ -227,4 +240,7 @@ class MainFragment: MainContract.View, Fragment() {
     private val limitsInfo: TextView by bind(R.id.limits_text)
     private val drawableContainer: LinearLayout by bind(R.id.drawable_container)
     private val refreshCountDown: RefreshCountDown by bind(R.id.refresh_count_down)
+    private val antistormImage1: ImageView by bind(R.id.antistorm_image_1)
+    private val antistormImage2: ImageView by bind(R.id.antistorm_image_2)
+    private val antistormImage3: ImageView by bind(R.id.antistorm_image_3)
 }
