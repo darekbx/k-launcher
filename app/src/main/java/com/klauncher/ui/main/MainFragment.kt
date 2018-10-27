@@ -66,6 +66,10 @@ class MainFragment: MainContract.View, Fragment() {
         }
 
         mapSensor.sensor?.let { sensor ->
+            if (sensor.rateLimitDay == 0) {
+                limitsInfo.setText("")
+                return
+            }
             limitsInfo.setText(getString(R.string.limits,
                     sensor.rateLimitRemainingDay, sensor.rateLimitDay,
                     sensor.rateLimitRemainingMinute, sensor.rateLimitMinute))

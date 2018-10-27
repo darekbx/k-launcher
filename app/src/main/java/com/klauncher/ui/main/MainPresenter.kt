@@ -1,6 +1,5 @@
 package com.klauncher.ui.main
 
-import android.util.Log
 import com.klauncher.api.ifmeteo.IfWeather
 import com.klauncher.api.airly.AirlyController
 import com.klauncher.api.airly.AirlySensors
@@ -11,6 +10,7 @@ import com.klauncher.model.rest.airly.Sensor
 import com.klauncher.model.rest.SensorError
 import com.klauncher.api.zm.PollutionLevel
 import com.klauncher.extensions.notNull
+import com.klauncher.model.MapSensor
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.experimental.*
@@ -19,6 +19,7 @@ import retrofit2.Response
 class MainPresenter(val view: MainContract.View): MainContract.Presenter {
 
     private var sensorsHandle: Disposable? = null
+    private val averageMap = hashMapOf<Int, Double>()
 
     override fun loadSensors() {
         sensorsHandle?.let {sensorsHandle ->
@@ -30,6 +31,7 @@ class MainPresenter(val view: MainContract.View): MainContract.Presenter {
                 .fromArray(AirlySensors.sensors)
                 .flatMapIterable { mapSensors -> mapSensors }
                 .doOnNext { it.sensor = fetchSensorData(it.airlyId) }
+                .doOnNext { obtainTrend(it) }
                 .threadToAndroid()
                 .notNull(view)
                 .subscribe(
@@ -37,6 +39,14 @@ class MainPresenter(val view: MainContract.View): MainContract.Presenter {
                         { view.notifyError(it) },
                         { sensorsHandle?.dispose() }
                 )
+    }
+
+    private fun obtainTrend(mapSensor: MapSensor) {
+        if (averageMap.containsKey(mapSensor.airlyId)) {
+            val previousValue = averageMap.getOrDefault(mapSensor.airlyId, 0.0)
+            mapSensor.trend = mapSensor.calculatePMAverage().compareTo(previousValue)
+            averageMap.put(mapSensor.airlyId, mapSensor.calculatePMAverage())
+        }
     }
 
     fun fetchSensorData(sensorId: Int): Sensor? {
