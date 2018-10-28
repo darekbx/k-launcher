@@ -41,12 +41,12 @@ class MainPresenter(val view: MainContract.View): MainContract.Presenter {
                 )
     }
 
-    private fun obtainTrend(mapSensor: MapSensor) {
+    fun obtainTrend(mapSensor: MapSensor) {
         if (averageMap.containsKey(mapSensor.airlyId)) {
             val previousValue = averageMap.getOrDefault(mapSensor.airlyId, 0.0)
             mapSensor.trend = mapSensor.calculatePMAverage().compareTo(previousValue)
-            averageMap.put(mapSensor.airlyId, mapSensor.calculatePMAverage())
         }
+        averageMap.put(mapSensor.airlyId, mapSensor.calculatePMAverage())
     }
 
     fun fetchSensorData(sensorId: Int): Sensor? {
