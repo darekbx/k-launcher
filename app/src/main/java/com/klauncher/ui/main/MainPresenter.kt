@@ -69,9 +69,13 @@ class MainPresenter(val view: MainContract.View): MainContract.Presenter {
 
     override fun loadAntistorm() {
         CoroutineScope(Dispatchers.Main).launch {
-            AntiStorm()
-                    .loadImages()
-                    ?.run { view.displayAntistorm(this) }
+            try {
+                AntiStorm()
+                        .loadImages()
+                        ?.run { view.displayAntistorm(this) }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 
