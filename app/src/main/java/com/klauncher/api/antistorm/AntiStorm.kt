@@ -6,7 +6,6 @@ import kotlinx.coroutines.experimental.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
-import java.lang.Exception
 
 class AntiStorm {
 
@@ -58,7 +57,7 @@ class AntiStorm {
         val response = httpClient.newCall(request).execute()
         when (response.isSuccessful) {
             true -> response.body()
-            else -> throw Exception(response.message())
+            else -> null
         }
     }.await()
 

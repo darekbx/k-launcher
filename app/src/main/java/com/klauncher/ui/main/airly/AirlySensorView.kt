@@ -63,17 +63,15 @@ class AirlySensorView(context: Context, attrs: AttributeSet) : View(context, att
                     drawMeasurement(currentMeasurements, "PM10", this)
                     drawMeasurement(currentMeasurements, "PM25", this)
 
+                    canvas.translate(60F, 0F)
+                    canvas.drawText(mapSensor.getArrow(), 0F, 9F, textPaint)
+
                     restore()
                 }
             } else {
                 drawDot(canvas, false)
             }
         }
-    }
-
-    private fun drawLimits(mapSensor: MapSensor, canvas: Canvas) {
-        canvas.translate(OFFSET, 0F)
-
     }
 
     private fun drawTemperature(currentMeasurement: Measurement, canvas: Canvas) {

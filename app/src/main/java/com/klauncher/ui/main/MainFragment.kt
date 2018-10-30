@@ -38,7 +38,7 @@ import java.util.concurrent.TimeUnit
 class MainFragment: MainContract.View, Fragment() {
 
     companion object {
-        val LOAD_DATA_DELAY = 2L
+        val LOAD_DATA_DELAY = 3L
         val TRAFFIC_ENABLED = false
     }
 
@@ -66,6 +66,10 @@ class MainFragment: MainContract.View, Fragment() {
         }
 
         mapSensor.sensor?.let { sensor ->
+            if (sensor.rateLimitDay == 0) {
+                limitsInfo.setText("")
+                return
+            }
             limitsInfo.setText(getString(R.string.limits,
                     sensor.rateLimitRemainingDay, sensor.rateLimitDay,
                     sensor.rateLimitRemainingMinute, sensor.rateLimitMinute))

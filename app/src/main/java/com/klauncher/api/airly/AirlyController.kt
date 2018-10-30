@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class AirlyController {
 
     companion object {
-        const val AUTHENTICATION_KEY = "5a7d1c45f1f74cdea453cf9d0794b622"
+        const val AUTHENTICATION_KEY = "HHGiCIvm1883USplSv3VFLRhsdDwSSvt"//"5a7d1c45f1f74cdea453cf9d0794b622"
         const val END_POINT = "https://airapi.airly.eu"
     }
 
