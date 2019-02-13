@@ -1,8 +1,8 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Material.NoActionBar">
-        <!-- Customize your theme here. -->
+        <item name="android:navigationBarColor">@android:color/black</item>
     </style>
 
     <style name="TinyText">

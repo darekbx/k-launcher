@@ -10,6 +10,7 @@ import com.klauncher.ui.applications.ApplicationsContract
 import com.klauncher.ui.applications.ApplicationsFragment
 import com.klauncher.ui.main.MainFragment
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.view.Gravity
 import com.klauncher.ui.main.MainContract
@@ -27,6 +28,8 @@ class MainActivity : Activity, DrawerLayout.DrawerListener {
         addMainFragment()
 
         drawer.addDrawerListener(this)
+
+        getWindow().setNavigationBarColor(Color.BLACK)
     }
 
     override fun onDestroy() {
