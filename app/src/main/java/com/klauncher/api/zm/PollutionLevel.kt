@@ -1,7 +1,9 @@
 package com.klauncher.api.zm
 
+import android.util.Log
 import com.google.gson.Gson
 import com.klauncher.model.rest.zm.*
+import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.rxkotlin.toSingle
@@ -15,13 +17,14 @@ open class PollutionLevel {
         val PROBES_ORDER = arrayOf("Warszawa-Marszałkowska", "Warszawa-Komunikacyjna", "Warszawa-Ursynów", "Warszawa-Targówek")
     }
 
-    fun loadPollution(): Single<ActualPollution> {
+    fun loadPollution(): Maybe<ActualPollution> {
         val request = createRequest()
         return createCall(request)
                 .toSingle()
                 .map { call -> call.execute() }
                 .map { response -> response.body()?.string() ?: "" }
                 .map { json -> removeFunctionWrapper(json) }
+                .filter { json -> json != "null" }
                 .map { json -> parseJson(json) }
                 .map { wrapper -> createActualPollutionModel(wrapper) }
     }

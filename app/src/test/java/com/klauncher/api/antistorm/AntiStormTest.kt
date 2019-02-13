@@ -1,6 +1,6 @@
 package com.klauncher.api.antistorm
 
-import kotlinx.coroutines.experimental.runBlocking
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
 import org.junit.Assert.*

@@ -13,10 +13,12 @@ import com.klauncher.extensions.notNull
 import com.klauncher.model.MapSensor
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
-import kotlinx.coroutines.experimental.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class MainPresenter(val view: MainContract.View): MainContract.Presenter {
+class MainPresenter(val view: MainContract.View?): MainContract.Presenter {
 
     private var sensorsHandle: Disposable? = null
     private val averageMap = hashMapOf<Int, Double>()
@@ -33,10 +35,9 @@ class MainPresenter(val view: MainContract.View): MainContract.Presenter {
                 .doOnNext { it.sensor = fetchSensorData(it.airlyId) }
                 .doOnNext { obtainTrend(it) }
                 .threadToAndroid()
-                .notNull(view)
                 .subscribe(
-                        { view.displaySensors(it) },
-                        { view.notifyError(it) },
+                        { view?.displaySensors(it) },
+                        { view?.notifyError(it) },
                         { sensorsHandle?.dispose() }
                 )
     }
@@ -79,11 +80,11 @@ class MainPresenter(val view: MainContract.View): MainContract.Presenter {
     }
 
     override fun loadAntistorm() {
-        CoroutineScope(Dispatchers.Main).launch {
+        CoroutineScope(Dispatchers.IO).launch {
             try {
                 AntiStorm()
                         .loadImages()
-                        ?.run { view.displayAntistorm(this) }
+                        ?.run { view?.displayAntistorm(this) }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -94,10 +95,9 @@ class MainPresenter(val view: MainContract.View): MainContract.Presenter {
                 PollutionLevel()
                 .loadPollution()
                 .threadToAndroid()
-                .notNull(view)
                 .subscribe(
-                        { view.displayPollution(it) },
-                        { view.notifyError(it) }
+                        { view?.displayPollution(it) },
+                        { view?.notifyError(it) }
                 )
     }
 
@@ -110,10 +110,9 @@ class MainPresenter(val view: MainContract.View): MainContract.Presenter {
         IfWeather()
                 .currentConditions()
                 .threadToAndroid()
-                .notNull(view)
                 .subscribe(
-                        { view.displayIfWeather(it) },
-                        { view.notifyError(it) }
+                        { view?.displayIfWeather(it) },
+                        { view?.notifyError(it) }
                 )
     }
 

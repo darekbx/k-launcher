@@ -16,6 +16,12 @@ fun <T> Single<T>.threadToAndroid(): Single<T> {
             .observeOn(AndroidSchedulers.mainThread())
 }
 
+fun <T> Maybe<T>.threadToAndroid(): Maybe<T> {
+    return this
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+}
+
 fun <T> Single<T>.notNull(view: Any): Maybe<T> {
     return this
             .filter { _ -> view != null }

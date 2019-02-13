@@ -108,9 +108,11 @@ class MainFragment: MainContract.View, Fragment() {
     override fun displayAntistorm(images: List<Bitmap>) {
         if (images.size == 3) {
             with (images) {
-                antistormImage1.setImageBitmap(get(0))
-                antistormImage2.setImageBitmap(get(1))
-                antistormImage3.setImageBitmap(get(2))
+                antistormImage1.post {
+                    antistormImage1.setImageBitmap(get(0))
+                    antistormImage2.setImageBitmap(get(1))
+                    antistormImage3.setImageBitmap(get(2))
+                }
             }
         }
     }
