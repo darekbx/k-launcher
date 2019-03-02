@@ -15,6 +15,10 @@ import java.util.HashSet
 
 open class ApplicationsPresenter(val view: ApplicationsContract.View): ApplicationsContract.Presenter {
 
+    companion object {
+        val CLICK_COUNT_ENABLED = false
+    }
+
     override fun loadItems() {
         view?.let {
             fetchAndCount()
@@ -27,8 +31,10 @@ open class ApplicationsPresenter(val view: ApplicationsContract.View): Applicati
     }
 
     override fun increaseClickCount(application: Application) {
-        repository().increaseCountByOne(application.packageName, application.name)
-        loadItems()
+        if (CLICK_COUNT_ENABLED) {
+            repository().increaseCountByOne(application.packageName, application.name)
+            loadItems()
+        }
     }
 
     override fun openApplication(application: Application) {

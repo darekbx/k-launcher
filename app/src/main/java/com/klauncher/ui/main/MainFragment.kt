@@ -40,6 +40,8 @@ class MainFragment: MainContract.View, Fragment() {
     companion object {
         val LOAD_DATA_DELAY = 3L
         val TRAFFIC_ENABLED = false
+        val IF_TEMP_ENABLED = false
+        val ZM_AIR_QUALITY_ENABLED = false
     }
 
     val presenter = MainPresenter(this)
@@ -196,8 +198,12 @@ class MainFragment: MainContract.View, Fragment() {
         airlyAdapter.clear()
         with(presenter) {
             loadSensors()
-            loadPollution()
-            loadIfWeather()
+            if (ZM_AIR_QUALITY_ENABLED) {
+                loadPollution()
+            }
+            if (IF_TEMP_ENABLED) {
+                loadIfWeather()
+            }
             loadAntistorm()
         }
     }

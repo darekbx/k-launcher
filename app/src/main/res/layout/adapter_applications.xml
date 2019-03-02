@@ -19,17 +19,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:paddingLeft="1dp"
-            android:layout_marginTop="-2dp"
-            android:textColor="#444"
-            android:textSize="8sp"
-            android:typeface="monospace"
-            android:text="@{application.clickCount + ``}"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_below="@id/icon"
             android:paddingLeft="1dp"
             android:layout_marginTop="-6dp"
