@@ -8,4 +8,8 @@
     <string name="moni_number">509588624</string>
     <string name="dot_pad_packagename">com.dotpad</string>
     <string name="dialer_package_name">com.android.dialer</string>
+
+    <string name="shanghai_format">Shanghai %s</string>
+    <string name="ny_format">New York %s</string>
+    <string name="tokio_format">Tokio %s</string>
 </resources>

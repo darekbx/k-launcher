@@ -33,6 +33,8 @@ import io.reactivex.Single
 import io.reactivex.disposables.Disposable
 import java.sql.Date
 import java.text.SimpleDateFormat
+import java.time.ZoneId
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 class MainFragment: MainContract.View, Fragment() {
@@ -42,6 +44,7 @@ class MainFragment: MainContract.View, Fragment() {
         val TRAFFIC_ENABLED = false
         val IF_TEMP_ENABLED = false
         val ZM_AIR_QUALITY_ENABLED = false
+        val GLOBAL_TIME = "HH:mm"
     }
 
     val presenter = MainPresenter(this)
@@ -176,6 +179,8 @@ class MainFragment: MainContract.View, Fragment() {
         airlyMap.adapter = airlyAdapter
         loadOnlineData()
 
+        loadGlobalTime()
+
         if (TRAFFIC_ENABLED) {
             val routePath = TrafficDrawable()
             drawableContainer.background = routePath
@@ -233,9 +238,23 @@ class MainFragment: MainContract.View, Fragment() {
         })
     }
 
+    private fun loadGlobalTime() {
+        val currentTime = Calendar.getInstance().time
+
+        globalTimeFormat.timeZone = TimeZone.getTimeZone(ZoneId.of("Asia/Tokyo"))
+        tokioTime.setText(getString(R.string.tokio_format, globalTimeFormat.format(currentTime)))
+
+        globalTimeFormat.timeZone = TimeZone.getTimeZone(ZoneId.of("Asia/Shanghai"))
+        shanghaiTime.setText(getString(R.string.shanghai_format, globalTimeFormat.format(currentTime)))
+
+        globalTimeFormat.timeZone = TimeZone.getTimeZone(ZoneId.of("America/New_York"))
+        nyTime.setText(getString(R.string.ny_format, globalTimeFormat.format(currentTime)))
+    }
+
     private val preferences: Preferences by lazy { Preferences(context) }
     private val screenTime: ScreenTime by lazy { ScreenTime(preferences) }
     private val airlyAdapter by lazy { AirlyViewAdapter(context) }
+    private val globalTimeFormat by lazy { SimpleDateFormat(GLOBAL_TIME) }
 
     private val dotCount: TextView by bind(R.id.dot_count)
     private val screenOnText: TextView by bind(R.id.screen_on_text)
@@ -255,4 +274,8 @@ class MainFragment: MainContract.View, Fragment() {
     private val antistormImage1: ImageView by bind(R.id.antistorm_image_1)
     private val antistormImage2: ImageView by bind(R.id.antistorm_image_2)
     private val antistormImage3: ImageView by bind(R.id.antistorm_image_3)
+
+    private val tokioTime: TextView by bind(R.id.tokio_text)
+    private val shanghaiTime: TextView by bind(R.id.shanghai_text)
+    private val nyTime: TextView by bind(R.id.ny_text)
 }

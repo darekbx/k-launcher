@@ -13,6 +13,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.view.Gravity
+import android.widget.TextView
 import com.klauncher.ui.main.MainContract
 
 
@@ -67,7 +68,7 @@ class MainActivity : Activity, DrawerLayout.DrawerListener {
         }
         fragmentManager
                 .beginTransaction()
-                .add(R.id.right_drawer, applicationsGrid)
+                .replace(R.id.right_drawer, applicationsGrid)
                 .commitAllowingStateLoss()
     }
 

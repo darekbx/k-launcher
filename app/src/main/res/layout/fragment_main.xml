@@ -6,6 +6,38 @@
     tools:context="com.klauncher.ui.MainActivity">
 
     <TextView
+        android:id="@+id/tokio_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_margin"
+        android:layout_marginRight="@dimen/small_margin"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        style="@style/TinyText"
+        tools:text="Tokio: 15:42"
+        />
+    <TextView
+        android:id="@+id/shanghai_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/small_margin"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/tokio_text"
+        style="@style/TinyText"
+        tools:text="Shanghai: 15:42"
+        />
+    <TextView
+        android:id="@+id/ny_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/small_margin"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/shanghai_text"
+        style="@style/TinyText"
+        tools:text="New York: 15:42"
+        />
+
+    <TextView
         android:id="@+id/screen_on_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
