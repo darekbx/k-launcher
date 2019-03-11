@@ -158,6 +158,7 @@ class MainFragment: MainContract.View, Fragment() {
                 .subscribe { _ -> loadOnlineData() }
 
         loadOfflineData()
+        loadGlobalTime()
     }
 
     override fun onPause() {
@@ -178,8 +179,6 @@ class MainFragment: MainContract.View, Fragment() {
         refreshCountDown.reloadDelay = TimeUnit.SECONDS.toMillis(LOAD_DATA_DELAY)
         airlyMap.adapter = airlyAdapter
         loadOnlineData()
-
-        loadGlobalTime()
 
         if (TRAFFIC_ENABLED) {
             val routePath = TrafficDrawable()
