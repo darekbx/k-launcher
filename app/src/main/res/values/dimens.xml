@@ -5,8 +5,8 @@
     <dimen name="sorting_item_size">46dp</dimen>
     <dimen name="antistorm_size">240dp</dimen>
 
-    <dimen name="drawer_width">140dp</dimen>
-    <dimen name="drawer_top_margin">340dp</dimen>
+    <dimen name="drawer_width">160dp</dimen>
+    <dimen name="drawer_top_margin">500dp</dimen>
 
     <dimen name="small_margin">4dp</dimen>
 

@@ -11,13 +11,17 @@ class DotsCount {
     }
 
     fun countActiveDots(): Int {
-        openDataBase().use { db ->
-            val cursor = db.query(DOTS_TABLE, null,
-                    "isArchival = 0 AND is_sticked = 0", null,
-                    null, null, null, null)
-            cursor?.use { cursor ->
-                return cursor.count
+        try {
+            openDataBase().use { db ->
+                val cursor = db.query(DOTS_TABLE, null,
+                        "isArchival = 0 AND is_sticked = 0", null,
+                        null, null, null, null)
+                cursor?.use { cursor ->
+                    return cursor.count
+                }
             }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
         return -1
     }
