@@ -6,7 +6,7 @@
     </data>
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="54dp"
+        android:layout_height="64dp"
         >
         <ImageView
             android:id="@+id/icon"
@@ -21,12 +21,13 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/icon"
             android:paddingLeft="1dp"
-            android:layout_marginTop="-6dp"
+            android:layout_marginTop="-4dp"
             android:textColor="#666"
             android:textSize="8sp"
             android:typeface="monospace"
             android:lines="1"
             android:ellipsize="end"
+            android:gravity="center"
             android:text="@{application.name}"
             />
     </RelativeLayout>
