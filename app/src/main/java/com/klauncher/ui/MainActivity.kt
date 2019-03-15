@@ -45,8 +45,7 @@ class MainActivity : Activity, DrawerLayout.DrawerListener {
     }
 
     fun openDialer(view: View) {
-        startActivity(getPackageManager().getLaunchIntentForPackage(
-                getString(R.string.dialer_package_name)))
+        startActivity(Intent(Intent.ACTION_DIAL))
     }
 
     fun openMessages(view: View) {
