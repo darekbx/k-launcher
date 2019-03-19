@@ -51,6 +51,7 @@ class MainFragment: MainContract.View, Fragment() {
 
     val presenter = MainPresenter(this)
     var subscription: Disposable? = null
+    var cachedDotCount = 0
 
     private val dotsReceiver  = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -105,6 +106,7 @@ class MainFragment: MainContract.View, Fragment() {
 
     override fun displayDotCount(count: Int) {
         if (!isAdded) return
+        cachedDotCount = count
         dotCount.text = "$count"
     }
 
@@ -181,6 +183,8 @@ class MainFragment: MainContract.View, Fragment() {
 
         loadOfflineData()
         loadGlobalTime()
+
+        dotCount.text = "$cachedDotCount"
     }
 
     override fun onPause() {
