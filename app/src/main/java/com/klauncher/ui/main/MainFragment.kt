@@ -15,6 +15,7 @@ import android.view.animation.LinearInterpolator
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.klauncher.DotsReceiver
 import com.klauncher.R
 import com.klauncher.extensions.bind
 import com.klauncher.extensions.hide
@@ -44,11 +45,22 @@ class MainFragment: MainContract.View, Fragment() {
         val TRAFFIC_ENABLED = false
         val IF_TEMP_ENABLED = false
         val ZM_AIR_QUALITY_ENABLED = false
+        val USE_DOT_PAD_2 = true
         val GLOBAL_TIME = "HH:mm"
     }
 
     val presenter = MainPresenter(this)
     var subscription: Disposable? = null
+
+    private val dotsReceiver  = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            intent?.run {
+                if (hasExtra(DotsReceiver.DOTS_COUNT_KEY)) {
+                    displayDotCount(intent.getIntExtra(DotsReceiver.DOTS_COUNT_KEY, -1))
+                }
+            }
+        }
+    }
 
     val screenReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -143,6 +155,16 @@ class MainFragment: MainContract.View, Fragment() {
         error.printStackTrace()
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        registerDotPadBroadcast()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        context.unregisterReceiver(dotsReceiver)
+    }
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
         registerScreenBroadcast()
         return LayoutInflater.from(context).inflate(R.layout.fragment_main, container, false)
@@ -194,7 +216,9 @@ class MainFragment: MainContract.View, Fragment() {
     }
 
     private fun loadOfflineData() {
-        presenter.loadDotCount()
+        if (!USE_DOT_PAD_2) {
+            presenter.loadDotCount()
+        }
         loadSunriseSunset()
     }
 
@@ -235,6 +259,10 @@ class MainFragment: MainContract.View, Fragment() {
             addAction(Intent.ACTION_SCREEN_ON)
             addAction(Intent.ACTION_SCREEN_OFF)
         })
+    }
+
+    private fun registerDotPadBroadcast() {
+        context.registerReceiver(dotsReceiver, IntentFilter(DotsReceiver.DOTS_FORWARD_ACTION))
     }
 
     private fun loadGlobalTime() {

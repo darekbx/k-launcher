@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="application_size_icon">56dp</dimen>
-    <dimen name="sorting_item_size">56dp</dimen>
+    <dimen name="application_size_icon">50dp</dimen>
+    <dimen name="sorting_item_size">50dp</dimen>
     <dimen name="antistorm_size">240dp</dimen>
 
     <dimen name="drawer_width">170dp</dimen>

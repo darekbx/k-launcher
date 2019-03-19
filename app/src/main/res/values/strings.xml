@@ -6,7 +6,7 @@
     <string name="limits">Day limit: %d/%d, minute limit: %d/%d</string>
 
     <string name="moni_number">509588624</string>
-    <string name="dot_pad_packagename">com.dotpad</string>
+    <string name="dot_pad_packagename">com.dotpad2</string>
     <string name="dialer_package_name">com.android.dialer</string>
 
     <string name="shanghai_format">Shanghai %s</string>
