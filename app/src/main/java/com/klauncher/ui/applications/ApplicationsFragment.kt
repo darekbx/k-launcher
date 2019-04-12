@@ -57,7 +57,7 @@ class ApplicationsFragment : Fragment(), ApplicationsContract.View {
 
     fun uninstall(application: Application) {
         startActivity(
-                Intent(Intent.ACTION_DELETE, Uri.fromParts("package", application.packageName, null))
+                Intent(Intent.ACTION_UNINSTALL_PACKAGE, Uri.fromParts("package", application.packageName, null))
         )
     }
 
