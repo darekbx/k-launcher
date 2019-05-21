@@ -174,7 +174,7 @@ class MainFragment: MainContract.View, Fragment() {
 
     override fun onResume() {
         super.onResume()
-        refreshCountDown.start()
+        refreshCountDown.post { refreshCountDown.start() }
         subscription = Single
                 .just(1)
                 .delay(LOAD_DATA_DELAY, TimeUnit.SECONDS)

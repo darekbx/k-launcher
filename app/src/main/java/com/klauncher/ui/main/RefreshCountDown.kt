@@ -61,9 +61,7 @@ class RefreshCountDown(context: Context?, attrs: AttributeSet?) : View(context, 
         super.onDraw(canvas)
         animator?.let {
             canvas?.run {
-
                 drawLine(0F, height.toFloat(), 0F, height.toFloat() - progressValue, paint)
-
             }
         }
     }
