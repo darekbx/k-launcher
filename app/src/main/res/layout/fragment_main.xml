@@ -150,7 +150,17 @@
             android:onClick="openMessages"
             />
     </LinearLayout>
-
+    <!--
+    <ImageView
+        android:id="@+id/antistorm_image_map"
+        android:layout_width="@dimen/antistorm_size"
+        android:layout_height="@dimen/antistorm_size"
+        android:layout_centerInParent="true"
+        android:scaleType="centerInside"
+        android:alpha="0.9"
+        android:src="@drawable/antistorm_map"
+        />
+   -->
     <ImageView
         android:id="@+id/antistorm_image_1"
         android:layout_width="@dimen/antistorm_size"
@@ -174,17 +184,27 @@
         android:scaleType="centerInside"
         />
     <RelativeLayout
+        android:id="@+id/warszawa"
         android:layout_width="2dp"
         android:layout_height="2dp"
-        android:layout_marginTop="363dp"
-        android:layout_marginLeft="245dp"
+        android:layout_marginTop="365dp"
+        android:layout_marginLeft="242dp"
         android:background="@drawable/bg_dot"
         />
     <RelativeLayout
+        android:id="@+id/biala_podlska"
         android:layout_width="2dp"
         android:layout_height="2dp"
         android:layout_marginTop="369dp"
-        android:layout_marginLeft="278dp"
+        android:layout_marginLeft="274dp"
+        android:background="@drawable/bg_dot"
+        />
+    <RelativeLayout
+        android:id="@+id/debki"
+        android:layout_width="2dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="302dp"
+        android:layout_marginLeft="202dp"
         android:background="@drawable/bg_dot"
         />
 
