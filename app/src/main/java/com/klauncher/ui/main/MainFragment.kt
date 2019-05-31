@@ -18,18 +18,13 @@ import android.widget.TextView
 import com.klauncher.DotsReceiver
 import com.klauncher.R
 import com.klauncher.extensions.bind
-import com.klauncher.extensions.hide
-import com.klauncher.extensions.show
 import com.klauncher.extensions.threadToAndroid
 import com.klauncher.external.Preferences
 import com.klauncher.model.MapSensor
-import com.klauncher.model.rest.ifmeteo.WeatherConditions
-import com.klauncher.model.rest.zm.ActualPollution
 import com.klauncher.ui.main.airly.AirlyMapViewAdapter
 import com.klauncher.ui.main.airly.AirlyViewAdapter
 import com.klauncher.ui.main.traffic.TrafficDrawable
 import com.klauncher.ui.main.screenon.ScreenTime
-import com.klauncher.ui.main.zm.PollutionView
 import io.reactivex.Single
 import io.reactivex.disposables.Disposable
 import java.sql.Date
@@ -43,8 +38,6 @@ class MainFragment: MainContract.View, Fragment() {
     companion object {
         val LOAD_DATA_DELAY = 3L
         val TRAFFIC_ENABLED = false
-        val IF_TEMP_ENABLED = false
-        val ZM_AIR_QUALITY_ENABLED = false
         val USE_DOT_PAD_2 = true
         val GLOBAL_TIME = "HH:mm"
     }
@@ -97,31 +90,10 @@ class MainFragment: MainContract.View, Fragment() {
         }
     }
 
-    override fun displayPollution(actualPollution: ActualPollution) {
-        if (!isAdded) return
-        pollutionPM10.setPollution(actualPollution.pm10, "PM  10:")
-        pollutionPM25.setPollution(actualPollution.pm25, "PM 2.5:")
-        pollutionInfo.text = "${actualPollution.time}\n${actualPollution.pm10.name}"
-    }
-
     override fun displayDotCount(count: Int) {
         if (!isAdded) return
         cachedDotCount = count
         dotCount.text = "$count"
-    }
-
-    override fun displayIfWeather(weatherConditions: WeatherConditions) {
-        if (!isAdded) return
-        showAllIfMeteoViews()
-        if (weatherConditions.temperature is Double) {
-            ifTemperature.text = "${weatherConditions.temperature}"
-            ifWindChill.text = "${weatherConditions.windChill}"
-            hideIfMeteoImageViews()
-        } else {
-            ifTemperatureImage.setImageBitmap(weatherConditions.temperature as Bitmap)
-            ifWindChillImage.setImageBitmap(weatherConditions.windChill as Bitmap)
-            hideIfMeteoDoubleViews()
-        }
     }
 
     override fun displayAntistorm(images: List<Bitmap>) {
@@ -134,23 +106,6 @@ class MainFragment: MainContract.View, Fragment() {
                 }
             }
         }
-    }
-
-    private fun hideIfMeteoDoubleViews() {
-        ifTemperature.hide()
-        ifWindChill.hide()
-    }
-
-    private fun hideIfMeteoImageViews() {
-        ifTemperatureImage.hide()
-        ifWindChillImage.hide()
-    }
-
-    private fun showAllIfMeteoViews() {
-        ifTemperatureImage.show()
-        ifWindChillImage.show()
-        ifTemperature.show()
-        ifWindChill.show()
     }
 
     override fun notifyError(error: Throwable) {
@@ -230,12 +185,6 @@ class MainFragment: MainContract.View, Fragment() {
         airlyAdapter.clear()
         with(presenter) {
             loadSensors()
-            if (ZM_AIR_QUALITY_ENABLED) {
-                loadPollution()
-            }
-            if (IF_TEMP_ENABLED) {
-                loadIfWeather()
-            }
             loadAntistorm()
         }
     }
@@ -280,6 +229,9 @@ class MainFragment: MainContract.View, Fragment() {
 
         globalTimeFormat.timeZone = TimeZone.getTimeZone(ZoneId.of("America/New_York"))
         nyTime.setText(getString(R.string.ny_format, globalTimeFormat.format(currentTime)))
+
+        globalTimeFormat.timeZone = TimeZone.getTimeZone(ZoneId.of("America/Los_Angeles"))
+        laTime.setText(getString(R.string.la_format, globalTimeFormat.format(currentTime)))
     }
 
     private val preferences: Preferences by lazy { Preferences(context) }
@@ -291,13 +243,6 @@ class MainFragment: MainContract.View, Fragment() {
     private val screenOnText: TextView by bind(R.id.screen_on_text)
     private val sunriseText: TextView by bind(R.id.sunrise_text)
     private val sunsetText: TextView by bind(R.id.sunset_text)
-    private val ifTemperature: TextView by bind(R.id.if_temperature)
-    private val ifWindChill: TextView by bind(R.id.if_wind_chill)
-    private val ifTemperatureImage: ImageView by bind(R.id.if_temperature_image)
-    private val ifWindChillImage: ImageView by bind(R.id.if_wind_chill_image)
-    private val pollutionInfo: TextView by bind(R.id.pollution_location_info)
-    private val pollutionPM10: PollutionView by bind(R.id.pollution_pm10)
-    private val pollutionPM25: PollutionView by bind(R.id.pollution_pm25)
     private val airlyMap: AirlyMapViewAdapter by bind(R.id.airly_map)
     private val limitsInfo: TextView by bind(R.id.limits_text)
     private val drawableContainer: LinearLayout by bind(R.id.drawable_container)
@@ -309,4 +254,5 @@ class MainFragment: MainContract.View, Fragment() {
     private val tokioTime: TextView by bind(R.id.tokio_text)
     private val shanghaiTime: TextView by bind(R.id.shanghai_text)
     private val nyTime: TextView by bind(R.id.ny_text)
+    private val laTime: TextView by bind(R.id.la_text)
 }

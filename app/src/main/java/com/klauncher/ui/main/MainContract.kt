@@ -3,8 +3,6 @@ package com.klauncher.ui.main
 import android.content.Context
 import android.graphics.Bitmap
 import com.klauncher.model.MapSensor
-import com.klauncher.model.rest.ifmeteo.WeatherConditions
-import com.klauncher.model.rest.zm.ActualPollution
 
 interface MainContract {
 
@@ -13,9 +11,7 @@ interface MainContract {
         fun getContext(): Context
 
         fun displaySensors(sensor: MapSensor)
-        fun displayPollution(actualPollution: ActualPollution)
         fun displayDotCount(count: Int)
-        fun displayIfWeather(weatherConditions: WeatherConditions)
         fun displayAntistorm(images: List<Bitmap>)
 
         fun notifyError(error: Throwable)
@@ -25,9 +21,7 @@ interface MainContract {
     interface Presenter {
 
         fun loadSensors()
-        fun loadPollution()
         fun loadDotCount()
-        fun loadIfWeather()
         fun loadAntistorm()
     }
 }

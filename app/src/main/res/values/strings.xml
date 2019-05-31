@@ -11,5 +11,6 @@
 
     <string name="shanghai_format">Shanghai %s</string>
     <string name="ny_format">New York %s</string>
+    <string name="la_format">Los Angeles %s</string>
     <string name="tokio_format">Tokio %s</string>
 </resources>

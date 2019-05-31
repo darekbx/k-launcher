@@ -1,6 +1,5 @@
 package com.klauncher.ui.main
 
-import com.klauncher.api.ifmeteo.IfWeather
 import com.klauncher.api.airly.AirlyController
 import com.klauncher.api.airly.AirlySensors
 import com.klauncher.api.antistorm.AntiStorm
@@ -8,8 +7,6 @@ import com.klauncher.api.dotpad.DotsCount
 import com.klauncher.extensions.threadToAndroid
 import com.klauncher.model.rest.airly.Sensor
 import com.klauncher.model.rest.SensorError
-import com.klauncher.api.zm.PollutionLevel
-import com.klauncher.extensions.notNull
 import com.klauncher.model.MapSensor
 import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
@@ -91,29 +88,9 @@ class MainPresenter(val view: MainContract.View?): MainContract.Presenter {
         }
     }
 
-    override fun loadPollution() {
-                PollutionLevel()
-                .loadPollution()
-                .threadToAndroid()
-                .subscribe(
-                        { view?.displayPollution(it) },
-                        { view?.notifyError(it) }
-                )
-    }
-
     override fun loadDotCount() {
         val count = dotsCount.countActiveDots()
         view?.let { view -> view.displayDotCount(count) }
-    }
-
-    override fun loadIfWeather() {
-        IfWeather()
-                .currentConditions()
-                .threadToAndroid()
-                .subscribe(
-                        { view?.displayIfWeather(it) },
-                        { view?.notifyError(it) }
-                )
     }
 
     private val airlyController by lazy {

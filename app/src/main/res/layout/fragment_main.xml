@@ -36,6 +36,16 @@
         style="@style/TinyText"
         tools:text="New York: 15:42"
         />
+    <TextView
+        android:id="@+id/la_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/small_margin"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/ny_text"
+        style="@style/TinyText"
+        tools:text="Los Angeles: 15:42"
+        />
 
     <TextView
         android:id="@+id/screen_on_text"
@@ -69,82 +79,6 @@
         android:layout_below="@id/sunrise_text"
         style="@style/TinyText"
         tools:text="Sunset"
-        />
-
-    <com.klauncher.ui.main.zm.PollutionView
-        android:id="@+id/pollution_pm10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="@dimen/small_margin"
-        android:layout_marginRight="@dimen/small_margin"
-        android:gravity="right"
-        style="@style/TinyText"
-        />
-    <com.klauncher.ui.main.zm.PollutionView
-        android:id="@+id/pollution_pm25"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/pollution_pm10"
-        android:layout_marginRight="@dimen/small_margin"
-        android:gravity="right"
-        style="@style/TinyText"
-        />
-    <TextView
-        android:id="@+id/pollution_location_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/small_margin"
-        android:layout_marginBottom="@dimen/small_margin"
-        android:gravity="right"
-        android:layout_below="@id/pollution_pm25"
-        style="@style/TinyText"
-        tools:text="Pollution info"
-        />
-
-    <TextView
-        android:id="@+id/if_temperature"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/small_margin"
-        android:gravity="right"
-        android:layout_below="@id/pollution_location_info"
-        style="@style/TinyText"
-        tools:text="IF temp"
-        />
-    <TextView
-        android:id="@+id/if_wind_chill"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/small_margin"
-        android:gravity="right"
-        android:layout_below="@id/if_temperature"
-        style="@style/TinyText"
-        tools:text="IF wind"
-        />
-
-    <ImageView
-        android:id="@+id/if_temperature_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/small_margin"
-        android:gravity="right"
-        android:layout_below="@id/if_wind_chill"
-        />
-    <ImageView
-        android:id="@+id/if_wind_chill_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/small_margin"
-        android:gravity="right"
-        android:layout_below="@id/if_temperature_image"
         />
 
     <com.klauncher.ui.main.airly.AirlyMapViewAdapter
@@ -242,7 +176,7 @@
     <RelativeLayout
         android:layout_width="2dp"
         android:layout_height="2dp"
-        android:layout_marginTop="365dp"
+        android:layout_marginTop="363dp"
         android:layout_marginLeft="245dp"
         android:background="@drawable/bg_dot"
         />
