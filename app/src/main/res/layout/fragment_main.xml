@@ -199,13 +199,5 @@
         android:layout_marginLeft="274dp"
         android:background="@drawable/bg_dot"
         />
-    <RelativeLayout
-        android:id="@+id/debki"
-        android:layout_width="2dp"
-        android:layout_height="2dp"
-        android:layout_marginTop="302dp"
-        android:layout_marginLeft="202dp"
-        android:background="@drawable/bg_dot"
-        />
 
 </RelativeLayout>
