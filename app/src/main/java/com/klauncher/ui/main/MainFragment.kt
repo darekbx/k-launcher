@@ -17,6 +17,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.klauncher.DotsReceiver
 import com.klauncher.R
+import com.klauncher.api.imgw.WaterMarks
 import com.klauncher.extensions.bind
 import com.klauncher.extensions.threadToAndroid
 import com.klauncher.external.Preferences
@@ -25,6 +26,7 @@ import com.klauncher.ui.main.airly.AirlyMapViewAdapter
 import com.klauncher.ui.main.airly.AirlyViewAdapter
 import com.klauncher.ui.main.traffic.TrafficDrawable
 import com.klauncher.ui.main.screenon.ScreenTime
+import com.klauncher.ui.main.watermarks.WaterMarksView
 import io.reactivex.Single
 import io.reactivex.disposables.Disposable
 import java.sql.Date
@@ -108,6 +110,10 @@ class MainFragment: MainContract.View, Fragment() {
         }
     }
 
+    override fun displayWaterMarks(entries: List<WaterMarks.Entry>) {
+        waterMarksView.entries = entries
+    }
+
     override fun notifyError(error: Throwable) {
         error.printStackTrace()
     }
@@ -186,6 +192,7 @@ class MainFragment: MainContract.View, Fragment() {
         with(presenter) {
             loadSensors()
             loadAntistorm()
+            loadWaterMarks()
         }
     }
 
@@ -239,6 +246,7 @@ class MainFragment: MainContract.View, Fragment() {
     private val airlyAdapter by lazy { AirlyViewAdapter(context) }
     private val globalTimeFormat by lazy { SimpleDateFormat(GLOBAL_TIME) }
 
+    private val waterMarksView: WaterMarksView by bind(R.id.water_marks_view)
     private val dotCount: TextView by bind(R.id.dot_count)
     private val screenOnText: TextView by bind(R.id.screen_on_text)
     private val sunriseText: TextView by bind(R.id.sunrise_text)

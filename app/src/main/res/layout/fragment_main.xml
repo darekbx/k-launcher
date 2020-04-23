@@ -84,7 +84,7 @@
     <com.klauncher.ui.main.airly.AirlyMapViewAdapter
         android:id="@+id/airly_map"
         android:layout_width="220dp"
-        android:layout_height="88dp"
+        android:layout_height="68dp"
         android:layout_marginTop="8dp"
         android:layout_below="@id/sunset_text"
         />
@@ -110,6 +110,15 @@
         android:textColor="#888"
         style="@style/TinyText"
         tools:text="Limits"
+        />
+
+    <com.klauncher.ui.main.watermarks.WaterMarksView
+        android:id="@+id/water_marks_view"
+        android:layout_below="@id/limits_text"
+        android:layout_marginTop="8dp"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
         />
 
     <LinearLayout

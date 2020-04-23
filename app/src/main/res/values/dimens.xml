@@ -6,7 +6,7 @@
     <dimen name="antistorm_size">240dp</dimen>
 
     <dimen name="drawer_width">170dp</dimen>
-    <dimen name="drawer_top_margin">500dp</dimen>
+    <dimen name="drawer_top_margin">450dp</dimen>
 
     <dimen name="small_margin">4dp</dimen>
 

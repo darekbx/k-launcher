@@ -15,8 +15,8 @@ class AirlySensorView(context: Context, attrs: AttributeSet) : View(context, att
     companion object {
         const val DOT_SIZE = 22F
         const val BOX_WIDTH = 600
-        const val BOX_HEIGHT = 38
-        const val OFFSET = 110f
+        const val BOX_HEIGHT = 56
+        const val OFFSET = 124f
     }
 
     val textPaint = Paint().apply {
@@ -25,7 +25,7 @@ class AirlySensorView(context: Context, attrs: AttributeSet) : View(context, att
         style = Paint.Style.FILL
         textAlign = Paint.Align.RIGHT
         typeface = Typeface.MONOSPACE
-        textSize = 22F
+        textSize = 28F
     }
 
     val paint = Paint().apply {
@@ -56,7 +56,7 @@ class AirlySensorView(context: Context, attrs: AttributeSet) : View(context, att
                 drawDot(canvas)
                 with(canvas) {
                     save()
-                    translate(30f, 20f)
+                    translate(30f, 24f)
 
                     drawTemperature(currentMeasurements, this)
                     drawMeasurement(currentMeasurements, "PM1", this)

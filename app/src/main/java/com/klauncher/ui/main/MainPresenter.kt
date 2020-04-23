@@ -4,7 +4,9 @@ import com.klauncher.api.airly.AirlyController
 import com.klauncher.api.airly.AirlySensors
 import com.klauncher.api.antistorm.AntiStorm
 import com.klauncher.api.dotpad.DotsCount
+import com.klauncher.api.imgw.WaterMarks
 import com.klauncher.extensions.threadToAndroid
+import com.klauncher.external.Preferences
 import com.klauncher.model.rest.airly.Sensor
 import com.klauncher.model.rest.SensorError
 import com.klauncher.model.MapSensor
@@ -82,6 +84,22 @@ class MainPresenter(val view: MainContract.View?): MainContract.Presenter {
                 AntiStorm()
                         .loadImages()
                         ?.run { view?.displayAntistorm(this) }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    override fun loadWaterMarks() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                view?.getContext()?.let { context ->
+                    val preferences = Preferences(context)
+                    val waterMarks = WaterMarks(preferences)
+                    waterMarks.loadReadings()?.let { entries ->
+                        view?.displayWaterMarks(entries)
+                    }
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
