@@ -69,6 +69,10 @@ open class ApplicationsPresenter(val view: ApplicationsContract.View): Applicati
                         row.packageName == application.packageName
                     }?.clickCount ?: 0
         }
+
+        // Own space will be always at first place
+        applications
+                .firstOrNull { it.packageName == "com.darekbx.ownspace" }?.clickCount = Int.MAX_VALUE
     }
 
     internal fun loadItemsSynchronously(pm: PackageManager) =
