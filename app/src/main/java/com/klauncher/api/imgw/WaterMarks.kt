@@ -1,5 +1,6 @@
 package com.klauncher.api.imgw
 
+import android.text.TextUtils
 import com.google.gson.Gson
 import com.klauncher.external.Preferences
 import okhttp3.FormBody
@@ -48,6 +49,10 @@ class WaterMarks constructor(val preferences: Preferences) {
                             }
                             "${key}|${it[3]}|${it[6]}" }
                         .joinToString(",")
+
+                if (TextUtils.isEmpty(data)) {
+                    return null
+                }
 
                 saveReadings(data)
                 return mapDataToEntries(data)
