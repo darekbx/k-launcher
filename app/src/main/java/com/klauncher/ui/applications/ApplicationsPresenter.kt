@@ -84,7 +84,7 @@ open class ApplicationsPresenter(val view: ApplicationsContract.View): Applicati
 
     internal open fun loadCountInfo() =
             Single.create<List<DBApplication>> {
-                with(database()) {
+                database()?.run {
                     val rows = entryDao().listAll()
                     close()
                     it.onSuccess(rows)
@@ -107,7 +107,7 @@ open class ApplicationsPresenter(val view: ApplicationsContract.View): Applicati
     }
 
     internal open fun repository() = Repository(view.getContext())
-    internal open fun database() = repository().database()
+    internal open fun database() = repository()?.database()
     internal open fun loadLabel(pm: PackageManager, resolveInfo: ResolveInfo) = resolveInfo.loadLabel(pm).toString()
     internal open fun loadPackagename(resolveInfo: ResolveInfo) = resolveInfo.activityInfo.applicationInfo.packageName
     internal open fun loadIcon(resolveInfo: ResolveInfo) = iconLoader.loadIcon(resolveInfo)
