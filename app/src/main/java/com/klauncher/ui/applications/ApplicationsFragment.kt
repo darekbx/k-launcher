@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.GridView
+import android.widget.Toast
 import com.klauncher.R
 import com.klauncher.extensions.bind
 import com.klauncher.extensions.hide
@@ -20,6 +21,8 @@ import com.klauncher.ui.applications.sortinggrid.SortingGrid
 import io.reactivex.subjects.PublishSubject
 
 class ApplicationsFragment : Fragment(), ApplicationsContract.View {
+
+    private val timeKeeperApps by lazy { listOf("olx", "price observer") }
 
     val applicationsReceiver =  object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -87,6 +90,14 @@ class ApplicationsFragment : Fragment(), ApplicationsContract.View {
 
     private fun handleOnClick(position: Int) {
         val application = applicationsAdapter.getItem(position)
+
+        if (timeKeeperApps.any { application.name.toLowerCase().startsWith(it.toLowerCase()) }) {
+            if (!timeKeeper.canOpen()) {
+                Toast.makeText(context, R.string.time_keeper_warning, Toast.LENGTH_SHORT).show()
+                return
+            }
+        }
+
         presenter.openApplication(application)
         closePublisher.onNext(0)
         refreshAdapter(applicationsList)
@@ -121,4 +132,5 @@ class ApplicationsFragment : Fragment(), ApplicationsContract.View {
 
     val grid: GridView by bind(R.id.grid_view)
     val sortingGrid: SortingGrid by bind(R.id.sorting_view)
+    val timeKeeper by lazy { TimeKeeper(context) }
 }

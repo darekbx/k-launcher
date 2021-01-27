@@ -2,6 +2,7 @@ package com.klauncher.external
 
 import android.content.Context
 import android.content.ContextWrapper
+import java.util.*
 
 class Preferences(val context: Context) : ContextWrapper(context) {
 
@@ -10,6 +11,7 @@ class Preferences(val context: Context) : ContextWrapper(context) {
     val CURRENT_DAY = "current_day"
     val WATER_MARKS_DATE = "water_marks_date"
     val WATER_MARKS_DATA = "water_marks_data"
+    val TIME_KEEPER = "time_keeper"
     val preferences = getSharedPreferences(PREFERENCES_NAME, 0)
 
     fun reset() = preferences.edit().clear().apply()
@@ -29,4 +31,8 @@ class Preferences(val context: Context) : ContextWrapper(context) {
     var waterMarksReadingData: String?
         get() = preferences.getString(WATER_MARKS_DATA, null)
         set(value) = preferences.edit().putString(WATER_MARKS_DATA, value).apply()
+
+    var timeKeeperTime: Long
+        get() = preferences.getLong(TIME_KEEPER, 0)
+        set(value) = preferences.edit().putLong(TIME_KEEPER, value).apply()
 }

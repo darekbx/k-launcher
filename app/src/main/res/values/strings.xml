@@ -13,4 +13,5 @@
     <string name="ny_format">New York %s</string>
     <string name="la_format">Los Angeles %s</string>
     <string name="tokio_format">Tokio %s</string>
+    <string name="time_keeper_warning">Locked by time keeper!</string>
 </resources>
