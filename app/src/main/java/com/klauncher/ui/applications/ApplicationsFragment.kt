@@ -92,7 +92,7 @@ class ApplicationsFragment : Fragment(), ApplicationsContract.View {
         val application = applicationsAdapter.getItem(position)
 
         if (timeKeeperApps.any { application.name.toLowerCase().startsWith(it.toLowerCase()) }) {
-            if (!timeKeeper.canOpen()) {
+            if (!timeKeeper.canOpen(application.name.toLowerCase())) {
                 Toast.makeText(context, R.string.time_keeper_warning, Toast.LENGTH_SHORT).show()
                 return
             }

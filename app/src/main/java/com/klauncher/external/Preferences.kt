@@ -32,7 +32,11 @@ class Preferences(val context: Context) : ContextWrapper(context) {
         get() = preferences.getString(WATER_MARKS_DATA, null)
         set(value) = preferences.edit().putString(WATER_MARKS_DATA, value).apply()
 
-    var timeKeeperTime: Long
-        get() = preferences.getLong(TIME_KEEPER, 0)
-        set(value) = preferences.edit().putLong(TIME_KEEPER, value).apply()
+    fun setTimeKeeperTime(key: String, value: Long) {
+        preferences.edit().putLong("$TIME_KEEPER$key", value).apply()
+    }
+
+    fun getTimeKeeperTime(key: String): Long {
+        return preferences.getLong("$TIME_KEEPER$key", 0)
+    }
 }

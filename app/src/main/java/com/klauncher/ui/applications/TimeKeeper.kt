@@ -8,8 +8,8 @@ class TimeKeeper(context: Context) {
 
     val OFFSET = 2 * 60 * 60 * 1000 // 2 hours
 
-    fun canOpen(): Boolean {
-        var lastOpenTime = preferences.timeKeeperTime
+    fun canOpen(key: String): Boolean {
+        var lastOpenTime = preferences.getTimeKeeperTime(key)
 
         if (lastOpenTime == null) {
             lastOpenTime = 0L
@@ -20,14 +20,14 @@ class TimeKeeper(context: Context) {
 
         if (now - lastOpenTime > OFFSET) {
             canOpen = true
-            setTime()
+            setTime(key)
         }
 
         return canOpen;
     }
 
-    private fun setTime() {
-        preferences.timeKeeperTime = Calendar.getInstance().timeInMillis
+    private fun setTime(key: String) {
+        preferences.setTimeKeeperTime(key, Calendar.getInstance().timeInMillis)
     }
 
     private val preferences: Preferences by lazy { Preferences(context) }
